@@ -24,7 +24,7 @@ GetIt $initGetIt(
   final firebaseInjectableModule = _$FirebaseInjectableModule();
   gh.factory<Dio>(() => firebaseInjectableModule.dio);
   gh.factory<FirebaseAuth>(() => firebaseInjectableModule.firebaseAuth);
-  gh.lazySingleton<RemoteApi>(() => RemoteApi(get<Dio>()));
+  gh.lazySingleton<RemoteApi>(() => RemoteApi(get<Dio>(), get<FirebaseAuth>()));
   return get;
 }
 

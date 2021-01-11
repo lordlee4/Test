@@ -3,7 +3,6 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'response_models.freezed.dart';
 part 'response_models.g.dart';
 
-@JsonSerializable(nullable: false)
 @freezed
 abstract class UserModel implements _$UserModel {
   const UserModel._();
@@ -26,7 +25,6 @@ abstract class UserModel implements _$UserModel {
       _$UserModelFromJson(json);
 }
 
-@JsonSerializable(nullable: false)
 @freezed
 abstract class PostModel implements _$PostModel {
   const factory PostModel({
@@ -45,7 +43,6 @@ abstract class PostModel implements _$PostModel {
       _$PostModelFromJson(json);
 }
 
-@JsonSerializable(nullable: false)
 @freezed
 abstract class FeedModel implements _$FeedModel {
   const factory FeedModel({

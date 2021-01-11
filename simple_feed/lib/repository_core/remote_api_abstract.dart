@@ -9,10 +9,10 @@ abstract class RemoteApiAbstract {
   Future<Either<RemoteApiFailures, Unit>> logout();
   Future<Either<RemoteApiFailures, PostModel>> createPost(
       {String caption, File image});
-  Future<Either<RemoteApiFailures, Unit>> likePost();
-  Future<Either<RemoteApiFailures, Unit>> unlikePost();
-  Future<Either<RemoteApiFailures, PostModel>> getPostById();
-  Future<Either<RemoteApiFailures, FeedModel>> getFeed();
+  Future<Either<RemoteApiFailures, String>> likePost({String id});
+  Future<Either<RemoteApiFailures, String>> unlikePost({String id});
+  Future<Either<RemoteApiFailures, PostModel>> getPostById({String id});
+  Future<Either<RemoteApiFailures, FeedModel>> getFeed({int page});
   Future<Either<RemoteApiFailures, UserModel>> getCurrentUser();
-  Future<Either<RemoteApiFailures, UserModel>> getUserById();
+  Future<Either<RemoteApiFailures, UserModel>> getUserById({String id});
 }

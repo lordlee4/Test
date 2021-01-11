@@ -9,6 +9,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 
+import 'bloc/core/core_bloc.dart';
 import 'injection/injectable_module.dart';
 import 'repository_core/remote_api.dart';
 
@@ -25,6 +26,7 @@ GetIt $initGetIt(
   gh.factory<Dio>(() => firebaseInjectableModule.dio);
   gh.factory<FirebaseAuth>(() => firebaseInjectableModule.firebaseAuth);
   gh.lazySingleton<RemoteApi>(() => RemoteApi(get<Dio>(), get<FirebaseAuth>()));
+  gh.factory<CoreBloc>(() => CoreBloc(get<RemoteApi>()));
   return get;
 }
 

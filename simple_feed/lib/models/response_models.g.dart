@@ -11,7 +11,7 @@ _$_UserModel _$_$_UserModelFromJson(Map<String, dynamic> json) {
     posts: json['posts'] as int,
     followers: json['followers'] as int,
     followings: json['followings'] as int,
-    id: json['_id'] as String,
+    id: json['id'] as String,
     account: json['account'] as String,
     username: json['username'] as String,
     name: json['name'] as String,
@@ -19,7 +19,7 @@ _$_UserModel _$_$_UserModelFromJson(Map<String, dynamic> json) {
     bio: json['bio'] as String,
     created_at: json['created_at'] as String,
     updated_at: json['updated_at'] as String,
-    v: json['__v'] as int,
+    v: json['v'] as int,
   );
 }
 
@@ -28,7 +28,7 @@ Map<String, dynamic> _$_$_UserModelToJson(_$_UserModel instance) =>
       'posts': instance.posts,
       'followers': instance.followers,
       'followings': instance.followings,
-      '_id': instance.id,
+      'id': instance.id,
       'account': instance.account,
       'username': instance.username,
       'name': instance.name,
@@ -36,13 +36,13 @@ Map<String, dynamic> _$_$_UserModelToJson(_$_UserModel instance) =>
       'bio': instance.bio,
       'created_at': instance.created_at,
       'updated_at': instance.updated_at,
-      '__v': instance.v,
+      'v': instance.v,
     };
 
 _$_PostModel _$_$_PostModelFromJson(Map<String, dynamic> json) {
   return _$_PostModel(
     likes: json['likes'] as int,
-    id: json['_id'] as String,
+    id: json['id'] as String,
     caption: json['caption'] as String,
     image: json['image'] as String,
     user: json['user'] == null
@@ -50,7 +50,7 @@ _$_PostModel _$_$_PostModelFromJson(Map<String, dynamic> json) {
         : UserModel.fromJson(json['user'] as Map<String, dynamic>),
     created_at: json['created_at'] as String,
     updated_at: json['updated_at'] as String,
-    v: json['__v'] as int,
+    v: json['v'] as int,
     isLiked: json['isLiked'] as bool,
   );
 }
@@ -58,13 +58,13 @@ _$_PostModel _$_$_PostModelFromJson(Map<String, dynamic> json) {
 Map<String, dynamic> _$_$_PostModelToJson(_$_PostModel instance) =>
     <String, dynamic>{
       'likes': instance.likes,
-      '_id': instance.id,
+      'id': instance.id,
       'caption': instance.caption,
       'image': instance.image,
       'user': instance.user,
       'created_at': instance.created_at,
       'updated_at': instance.updated_at,
-      '__v': instance.v,
+      'v': instance.v,
       'isLiked': instance.isLiked,
     };
 

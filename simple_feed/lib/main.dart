@@ -1,18 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:simple_feed/bloc/core/core_bloc.dart';
+import 'package:simple_feed/screens/feedScreen.dart';
 import 'package:simple_feed/screens/postScreen.dart';
 import 'package:simple_feed/screens/welcome.dart';
 import 'package:simple_feed/utils/theme.dart';
 import 'package:injectable/injectable.dart';
-import 'package:simple_feed/injections.dart';
+import 'package:simple_feed/injectable.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:path/path.dart' as path;
+import 'package:firebase_core/firebase_core.dart';
 import 'package:dio/dio.dart';
 import 'package:simple_feed/models/response_models.dart';
 
-void main() {
+void main() async {
   configureDependencies();
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
@@ -23,7 +28,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: basicTheme(),
-      home: Post(),
+      home: LoginPage(),
     );
   }
 }

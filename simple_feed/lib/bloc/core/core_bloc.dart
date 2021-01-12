@@ -68,5 +68,6 @@ class CoreBloc extends Bloc<CoreEvent, CoreState> {
         await _remoteApi.getFeed(page: pageNumber);
     feedFailureOrSuccess.foldRight(
         () {}, (r, previous) => {this.pageNumber += 1});
+    yield Feed(feedFailureOrSuccess: feedFailureOrSuccess);
   }
 }

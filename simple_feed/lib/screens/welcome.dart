@@ -29,7 +29,7 @@ class _LoginFormState extends State<LoginForm> {
     return BlocConsumer<AuthBloc, AuthState>(listener: (context, loginState) {
       if (loginState is UninitializedState) {
         _authBloc.add(AppStart());
-        Center(
+        const Center(
             child: CircularProgressIndicator(
           value: null,
           strokeWidth: 5.0,

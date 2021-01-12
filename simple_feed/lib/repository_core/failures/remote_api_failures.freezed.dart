@@ -29,13 +29,17 @@ class _$RemoteApiFailuresTearOff {
   }
 
 // ignore: unused_element
-  FailedToLikePost<T> failedToLikePost<T>() {
-    return FailedToLikePost<T>();
+  FailedToLikePost<T> failedToLikePost<T>({@required String id}) {
+    return FailedToLikePost<T>(
+      id: id,
+    );
   }
 
 // ignore: unused_element
-  FailedToUnLikePost<T> failedToUnLikePost<T>() {
-    return FailedToUnLikePost<T>();
+  FailedToUnLikePost<T> failedToUnLikePost<T>({@required String id}) {
+    return FailedToUnLikePost<T>(
+      id: id,
+    );
   }
 
 // ignore: unused_element
@@ -70,8 +74,8 @@ mixin _$RemoteApiFailures<T> {
     @required TResult failedToVerify(),
     @required TResult failedToLogout(),
     @required TResult failedToCreatePost(),
-    @required TResult failedToLikePost(),
-    @required TResult failedToUnLikePost(),
+    @required TResult failedToLikePost(String id),
+    @required TResult failedToUnLikePost(String id),
     @required TResult failedToGetPostById(),
     @required TResult failedToGetFeed(),
     @required TResult failedToGetMine(),
@@ -82,8 +86,8 @@ mixin _$RemoteApiFailures<T> {
     TResult failedToVerify(),
     TResult failedToLogout(),
     TResult failedToCreatePost(),
-    TResult failedToLikePost(),
-    TResult failedToUnLikePost(),
+    TResult failedToLikePost(String id),
+    TResult failedToUnLikePost(String id),
     TResult failedToGetPostById(),
     TResult failedToGetFeed(),
     TResult failedToGetMine(),
@@ -176,8 +180,8 @@ class _$FailedToVerify<T> implements FailedToVerify<T> {
     @required TResult failedToVerify(),
     @required TResult failedToLogout(),
     @required TResult failedToCreatePost(),
-    @required TResult failedToLikePost(),
-    @required TResult failedToUnLikePost(),
+    @required TResult failedToLikePost(String id),
+    @required TResult failedToUnLikePost(String id),
     @required TResult failedToGetPostById(),
     @required TResult failedToGetFeed(),
     @required TResult failedToGetMine(),
@@ -201,8 +205,8 @@ class _$FailedToVerify<T> implements FailedToVerify<T> {
     TResult failedToVerify(),
     TResult failedToLogout(),
     TResult failedToCreatePost(),
-    TResult failedToLikePost(),
-    TResult failedToUnLikePost(),
+    TResult failedToLikePost(String id),
+    TResult failedToUnLikePost(String id),
     TResult failedToGetPostById(),
     TResult failedToGetFeed(),
     TResult failedToGetMine(),
@@ -309,8 +313,8 @@ class _$FailedToLogout<T> implements FailedToLogout<T> {
     @required TResult failedToVerify(),
     @required TResult failedToLogout(),
     @required TResult failedToCreatePost(),
-    @required TResult failedToLikePost(),
-    @required TResult failedToUnLikePost(),
+    @required TResult failedToLikePost(String id),
+    @required TResult failedToUnLikePost(String id),
     @required TResult failedToGetPostById(),
     @required TResult failedToGetFeed(),
     @required TResult failedToGetMine(),
@@ -334,8 +338,8 @@ class _$FailedToLogout<T> implements FailedToLogout<T> {
     TResult failedToVerify(),
     TResult failedToLogout(),
     TResult failedToCreatePost(),
-    TResult failedToLikePost(),
-    TResult failedToUnLikePost(),
+    TResult failedToLikePost(String id),
+    TResult failedToUnLikePost(String id),
     TResult failedToGetPostById(),
     TResult failedToGetFeed(),
     TResult failedToGetMine(),
@@ -442,8 +446,8 @@ class _$FailedToCreatePost<T> implements FailedToCreatePost<T> {
     @required TResult failedToVerify(),
     @required TResult failedToLogout(),
     @required TResult failedToCreatePost(),
-    @required TResult failedToLikePost(),
-    @required TResult failedToUnLikePost(),
+    @required TResult failedToLikePost(String id),
+    @required TResult failedToUnLikePost(String id),
     @required TResult failedToGetPostById(),
     @required TResult failedToGetFeed(),
     @required TResult failedToGetMine(),
@@ -467,8 +471,8 @@ class _$FailedToCreatePost<T> implements FailedToCreatePost<T> {
     TResult failedToVerify(),
     TResult failedToLogout(),
     TResult failedToCreatePost(),
-    TResult failedToLikePost(),
-    TResult failedToUnLikePost(),
+    TResult failedToLikePost(String id),
+    TResult failedToUnLikePost(String id),
     TResult failedToGetPostById(),
     TResult failedToGetFeed(),
     TResult failedToGetMine(),
@@ -538,6 +542,7 @@ abstract class $FailedToLikePostCopyWith<T, $Res> {
   factory $FailedToLikePostCopyWith(
           FailedToLikePost<T> value, $Res Function(FailedToLikePost<T>) then) =
       _$FailedToLikePostCopyWithImpl<T, $Res>;
+  $Res call({String id});
 }
 
 /// @nodoc
@@ -550,24 +555,44 @@ class _$FailedToLikePostCopyWithImpl<T, $Res>
 
   @override
   FailedToLikePost<T> get _value => super._value as FailedToLikePost<T>;
+
+  @override
+  $Res call({
+    Object id = freezed,
+  }) {
+    return _then(FailedToLikePost<T>(
+      id: id == freezed ? _value.id : id as String,
+    ));
+  }
 }
 
 /// @nodoc
 class _$FailedToLikePost<T> implements FailedToLikePost<T> {
-  const _$FailedToLikePost();
+  const _$FailedToLikePost({@required this.id}) : assert(id != null);
+
+  @override
+  final String id;
 
   @override
   String toString() {
-    return 'RemoteApiFailures<$T>.failedToLikePost()';
+    return 'RemoteApiFailures<$T>.failedToLikePost(id: $id)';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is FailedToLikePost<T>);
+    return identical(this, other) ||
+        (other is FailedToLikePost<T> &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(id);
+
+  @override
+  $FailedToLikePostCopyWith<T, FailedToLikePost<T>> get copyWith =>
+      _$FailedToLikePostCopyWithImpl<T, FailedToLikePost<T>>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -575,8 +600,8 @@ class _$FailedToLikePost<T> implements FailedToLikePost<T> {
     @required TResult failedToVerify(),
     @required TResult failedToLogout(),
     @required TResult failedToCreatePost(),
-    @required TResult failedToLikePost(),
-    @required TResult failedToUnLikePost(),
+    @required TResult failedToLikePost(String id),
+    @required TResult failedToUnLikePost(String id),
     @required TResult failedToGetPostById(),
     @required TResult failedToGetFeed(),
     @required TResult failedToGetMine(),
@@ -591,7 +616,7 @@ class _$FailedToLikePost<T> implements FailedToLikePost<T> {
     assert(failedToGetFeed != null);
     assert(failedToGetMine != null);
     assert(failedToGetUserById != null);
-    return failedToLikePost();
+    return failedToLikePost(id);
   }
 
   @override
@@ -600,8 +625,8 @@ class _$FailedToLikePost<T> implements FailedToLikePost<T> {
     TResult failedToVerify(),
     TResult failedToLogout(),
     TResult failedToCreatePost(),
-    TResult failedToLikePost(),
-    TResult failedToUnLikePost(),
+    TResult failedToLikePost(String id),
+    TResult failedToUnLikePost(String id),
     TResult failedToGetPostById(),
     TResult failedToGetFeed(),
     TResult failedToGetMine(),
@@ -610,7 +635,7 @@ class _$FailedToLikePost<T> implements FailedToLikePost<T> {
   }) {
     assert(orElse != null);
     if (failedToLikePost != null) {
-      return failedToLikePost();
+      return failedToLikePost(id);
     }
     return orElse();
   }
@@ -663,7 +688,10 @@ class _$FailedToLikePost<T> implements FailedToLikePost<T> {
 }
 
 abstract class FailedToLikePost<T> implements RemoteApiFailures<T> {
-  const factory FailedToLikePost() = _$FailedToLikePost<T>;
+  const factory FailedToLikePost({@required String id}) = _$FailedToLikePost<T>;
+
+  String get id;
+  $FailedToLikePostCopyWith<T, FailedToLikePost<T>> get copyWith;
 }
 
 /// @nodoc
@@ -671,6 +699,7 @@ abstract class $FailedToUnLikePostCopyWith<T, $Res> {
   factory $FailedToUnLikePostCopyWith(FailedToUnLikePost<T> value,
           $Res Function(FailedToUnLikePost<T>) then) =
       _$FailedToUnLikePostCopyWithImpl<T, $Res>;
+  $Res call({String id});
 }
 
 /// @nodoc
@@ -683,24 +712,45 @@ class _$FailedToUnLikePostCopyWithImpl<T, $Res>
 
   @override
   FailedToUnLikePost<T> get _value => super._value as FailedToUnLikePost<T>;
+
+  @override
+  $Res call({
+    Object id = freezed,
+  }) {
+    return _then(FailedToUnLikePost<T>(
+      id: id == freezed ? _value.id : id as String,
+    ));
+  }
 }
 
 /// @nodoc
 class _$FailedToUnLikePost<T> implements FailedToUnLikePost<T> {
-  const _$FailedToUnLikePost();
+  const _$FailedToUnLikePost({@required this.id}) : assert(id != null);
+
+  @override
+  final String id;
 
   @override
   String toString() {
-    return 'RemoteApiFailures<$T>.failedToUnLikePost()';
+    return 'RemoteApiFailures<$T>.failedToUnLikePost(id: $id)';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is FailedToUnLikePost<T>);
+    return identical(this, other) ||
+        (other is FailedToUnLikePost<T> &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(id);
+
+  @override
+  $FailedToUnLikePostCopyWith<T, FailedToUnLikePost<T>> get copyWith =>
+      _$FailedToUnLikePostCopyWithImpl<T, FailedToUnLikePost<T>>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -708,8 +758,8 @@ class _$FailedToUnLikePost<T> implements FailedToUnLikePost<T> {
     @required TResult failedToVerify(),
     @required TResult failedToLogout(),
     @required TResult failedToCreatePost(),
-    @required TResult failedToLikePost(),
-    @required TResult failedToUnLikePost(),
+    @required TResult failedToLikePost(String id),
+    @required TResult failedToUnLikePost(String id),
     @required TResult failedToGetPostById(),
     @required TResult failedToGetFeed(),
     @required TResult failedToGetMine(),
@@ -724,7 +774,7 @@ class _$FailedToUnLikePost<T> implements FailedToUnLikePost<T> {
     assert(failedToGetFeed != null);
     assert(failedToGetMine != null);
     assert(failedToGetUserById != null);
-    return failedToUnLikePost();
+    return failedToUnLikePost(id);
   }
 
   @override
@@ -733,8 +783,8 @@ class _$FailedToUnLikePost<T> implements FailedToUnLikePost<T> {
     TResult failedToVerify(),
     TResult failedToLogout(),
     TResult failedToCreatePost(),
-    TResult failedToLikePost(),
-    TResult failedToUnLikePost(),
+    TResult failedToLikePost(String id),
+    TResult failedToUnLikePost(String id),
     TResult failedToGetPostById(),
     TResult failedToGetFeed(),
     TResult failedToGetMine(),
@@ -743,7 +793,7 @@ class _$FailedToUnLikePost<T> implements FailedToUnLikePost<T> {
   }) {
     assert(orElse != null);
     if (failedToUnLikePost != null) {
-      return failedToUnLikePost();
+      return failedToUnLikePost(id);
     }
     return orElse();
   }
@@ -796,7 +846,11 @@ class _$FailedToUnLikePost<T> implements FailedToUnLikePost<T> {
 }
 
 abstract class FailedToUnLikePost<T> implements RemoteApiFailures<T> {
-  const factory FailedToUnLikePost() = _$FailedToUnLikePost<T>;
+  const factory FailedToUnLikePost({@required String id}) =
+      _$FailedToUnLikePost<T>;
+
+  String get id;
+  $FailedToUnLikePostCopyWith<T, FailedToUnLikePost<T>> get copyWith;
 }
 
 /// @nodoc
@@ -841,8 +895,8 @@ class _$FailedToGetPostById<T> implements FailedToGetPostById<T> {
     @required TResult failedToVerify(),
     @required TResult failedToLogout(),
     @required TResult failedToCreatePost(),
-    @required TResult failedToLikePost(),
-    @required TResult failedToUnLikePost(),
+    @required TResult failedToLikePost(String id),
+    @required TResult failedToUnLikePost(String id),
     @required TResult failedToGetPostById(),
     @required TResult failedToGetFeed(),
     @required TResult failedToGetMine(),
@@ -866,8 +920,8 @@ class _$FailedToGetPostById<T> implements FailedToGetPostById<T> {
     TResult failedToVerify(),
     TResult failedToLogout(),
     TResult failedToCreatePost(),
-    TResult failedToLikePost(),
-    TResult failedToUnLikePost(),
+    TResult failedToLikePost(String id),
+    TResult failedToUnLikePost(String id),
     TResult failedToGetPostById(),
     TResult failedToGetFeed(),
     TResult failedToGetMine(),
@@ -974,8 +1028,8 @@ class _$FailedToGetFeed<T> implements FailedToGetFeed<T> {
     @required TResult failedToVerify(),
     @required TResult failedToLogout(),
     @required TResult failedToCreatePost(),
-    @required TResult failedToLikePost(),
-    @required TResult failedToUnLikePost(),
+    @required TResult failedToLikePost(String id),
+    @required TResult failedToUnLikePost(String id),
     @required TResult failedToGetPostById(),
     @required TResult failedToGetFeed(),
     @required TResult failedToGetMine(),
@@ -999,8 +1053,8 @@ class _$FailedToGetFeed<T> implements FailedToGetFeed<T> {
     TResult failedToVerify(),
     TResult failedToLogout(),
     TResult failedToCreatePost(),
-    TResult failedToLikePost(),
-    TResult failedToUnLikePost(),
+    TResult failedToLikePost(String id),
+    TResult failedToUnLikePost(String id),
     TResult failedToGetPostById(),
     TResult failedToGetFeed(),
     TResult failedToGetMine(),
@@ -1107,8 +1161,8 @@ class _$FailedToGetMine<T> implements FailedToGetMine<T> {
     @required TResult failedToVerify(),
     @required TResult failedToLogout(),
     @required TResult failedToCreatePost(),
-    @required TResult failedToLikePost(),
-    @required TResult failedToUnLikePost(),
+    @required TResult failedToLikePost(String id),
+    @required TResult failedToUnLikePost(String id),
     @required TResult failedToGetPostById(),
     @required TResult failedToGetFeed(),
     @required TResult failedToGetMine(),
@@ -1132,8 +1186,8 @@ class _$FailedToGetMine<T> implements FailedToGetMine<T> {
     TResult failedToVerify(),
     TResult failedToLogout(),
     TResult failedToCreatePost(),
-    TResult failedToLikePost(),
-    TResult failedToUnLikePost(),
+    TResult failedToLikePost(String id),
+    TResult failedToUnLikePost(String id),
     TResult failedToGetPostById(),
     TResult failedToGetFeed(),
     TResult failedToGetMine(),
@@ -1240,8 +1294,8 @@ class _$FailedToGetUserById<T> implements FailedToGetUserById<T> {
     @required TResult failedToVerify(),
     @required TResult failedToLogout(),
     @required TResult failedToCreatePost(),
-    @required TResult failedToLikePost(),
-    @required TResult failedToUnLikePost(),
+    @required TResult failedToLikePost(String id),
+    @required TResult failedToUnLikePost(String id),
     @required TResult failedToGetPostById(),
     @required TResult failedToGetFeed(),
     @required TResult failedToGetMine(),
@@ -1265,8 +1319,8 @@ class _$FailedToGetUserById<T> implements FailedToGetUserById<T> {
     TResult failedToVerify(),
     TResult failedToLogout(),
     TResult failedToCreatePost(),
-    TResult failedToLikePost(),
-    TResult failedToUnLikePost(),
+    TResult failedToLikePost(String id),
+    TResult failedToUnLikePost(String id),
     TResult failedToGetPostById(),
     TResult failedToGetFeed(),
     TResult failedToGetMine(),

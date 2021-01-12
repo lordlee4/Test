@@ -96,7 +96,7 @@ class RemoteApi implements RemoteApiAbstract {
       final response = await _dio.put(baseUrl + "posts/like/${id}");
       return right(id);
     } catch (error) {
-      return left(const RemoteApiFailures.failedToLikePost());
+      return left(RemoteApiFailures.failedToLikePost(id: id));
     }
   }
 
@@ -116,7 +116,7 @@ class RemoteApi implements RemoteApiAbstract {
       final response = await _dio.put(baseUrl + "posts/unlike/${id}");
       return right(id);
     } catch (error) {
-      return left(const RemoteApiFailures.failedToUnLikePost());
+      return left(RemoteApiFailures.failedToUnLikePost(id: id));
     }
   }
 

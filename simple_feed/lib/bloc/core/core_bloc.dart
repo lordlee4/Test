@@ -36,7 +36,7 @@ class CoreBloc extends Bloc<CoreEvent, CoreState> {
           await _remoteApi.getCurrentUser();
       yield CurrentUser(userFailureOrSuccess: userFailureOrSuccess);
     }, getFeed: (e) async* {
-      yield* _getFeed(pageNumber: e.page);
+      yield* _getFeed(pageNumber: pageNumber);
     }, getPostById: (e) async* {
       final Either<RemoteApiFailures, PostModel> postFailureOrSuccess =
           await _remoteApi.getPostById(id: e.id);

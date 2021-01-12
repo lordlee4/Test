@@ -32,10 +32,8 @@ class _$CoreEventTearOff {
   }
 
 // ignore: unused_element
-  GetFeed getFeed({int page}) {
-    return GetFeed(
-      page: page,
-    );
+  GetFeed getFeed() {
+    return const GetFeed();
   }
 
 // ignore: unused_element
@@ -88,7 +86,7 @@ mixin _$CoreEvent {
     @required TResult initialEvent(),
     @required TResult createPost(String caption, File image),
     @required TResult getCurrentUser(),
-    @required TResult getFeed(int page),
+    @required TResult getFeed(),
     @required TResult getPostById(String id),
     @required TResult getUserById(String id),
     @required TResult likePost(String id),
@@ -101,7 +99,7 @@ mixin _$CoreEvent {
     TResult initialEvent(),
     TResult createPost(String caption, File image),
     TResult getCurrentUser(),
-    TResult getFeed(int page),
+    TResult getFeed(),
     TResult getPostById(String id),
     TResult getUserById(String id),
     TResult likePost(String id),
@@ -195,7 +193,7 @@ class _$InitialEvent implements InitialEvent {
     @required TResult initialEvent(),
     @required TResult createPost(String caption, File image),
     @required TResult getCurrentUser(),
-    @required TResult getFeed(int page),
+    @required TResult getFeed(),
     @required TResult getPostById(String id),
     @required TResult getUserById(String id),
     @required TResult likePost(String id),
@@ -222,7 +220,7 @@ class _$InitialEvent implements InitialEvent {
     TResult initialEvent(),
     TResult createPost(String caption, File image),
     TResult getCurrentUser(),
-    TResult getFeed(int page),
+    TResult getFeed(),
     TResult getPostById(String id),
     TResult getUserById(String id),
     TResult likePost(String id),
@@ -362,7 +360,7 @@ class _$CreatePost implements CreatePost {
     @required TResult initialEvent(),
     @required TResult createPost(String caption, File image),
     @required TResult getCurrentUser(),
-    @required TResult getFeed(int page),
+    @required TResult getFeed(),
     @required TResult getPostById(String id),
     @required TResult getUserById(String id),
     @required TResult likePost(String id),
@@ -389,7 +387,7 @@ class _$CreatePost implements CreatePost {
     TResult initialEvent(),
     TResult createPost(String caption, File image),
     TResult getCurrentUser(),
-    TResult getFeed(int page),
+    TResult getFeed(),
     TResult getPostById(String id),
     TResult getUserById(String id),
     TResult likePost(String id),
@@ -504,7 +502,7 @@ class _$GetCurrentUser implements GetCurrentUser {
     @required TResult initialEvent(),
     @required TResult createPost(String caption, File image),
     @required TResult getCurrentUser(),
-    @required TResult getFeed(int page),
+    @required TResult getFeed(),
     @required TResult getPostById(String id),
     @required TResult getUserById(String id),
     @required TResult likePost(String id),
@@ -531,7 +529,7 @@ class _$GetCurrentUser implements GetCurrentUser {
     TResult initialEvent(),
     TResult createPost(String caption, File image),
     TResult getCurrentUser(),
-    TResult getFeed(int page),
+    TResult getFeed(),
     TResult getPostById(String id),
     TResult getUserById(String id),
     TResult likePost(String id),
@@ -605,7 +603,6 @@ abstract class GetCurrentUser implements CoreEvent {
 abstract class $GetFeedCopyWith<$Res> {
   factory $GetFeedCopyWith(GetFeed value, $Res Function(GetFeed) then) =
       _$GetFeedCopyWithImpl<$Res>;
-  $Res call({int page});
 }
 
 /// @nodoc
@@ -616,44 +613,24 @@ class _$GetFeedCopyWithImpl<$Res> extends _$CoreEventCopyWithImpl<$Res>
 
   @override
   GetFeed get _value => super._value as GetFeed;
-
-  @override
-  $Res call({
-    Object page = freezed,
-  }) {
-    return _then(GetFeed(
-      page: page == freezed ? _value.page : page as int,
-    ));
-  }
 }
 
 /// @nodoc
 class _$GetFeed implements GetFeed {
-  const _$GetFeed({this.page});
-
-  @override
-  final int page;
+  const _$GetFeed();
 
   @override
   String toString() {
-    return 'CoreEvent.getFeed(page: $page)';
+    return 'CoreEvent.getFeed()';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other is GetFeed &&
-            (identical(other.page, page) ||
-                const DeepCollectionEquality().equals(other.page, page)));
+    return identical(this, other) || (other is GetFeed);
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(page);
-
-  @override
-  $GetFeedCopyWith<GetFeed> get copyWith =>
-      _$GetFeedCopyWithImpl<GetFeed>(this, _$identity);
+  int get hashCode => runtimeType.hashCode;
 
   @override
   @optionalTypeArgs
@@ -661,7 +638,7 @@ class _$GetFeed implements GetFeed {
     @required TResult initialEvent(),
     @required TResult createPost(String caption, File image),
     @required TResult getCurrentUser(),
-    @required TResult getFeed(int page),
+    @required TResult getFeed(),
     @required TResult getPostById(String id),
     @required TResult getUserById(String id),
     @required TResult likePost(String id),
@@ -679,7 +656,7 @@ class _$GetFeed implements GetFeed {
     assert(logout != null);
     assert(unlikePost != null);
     assert(refreshFeed != null);
-    return getFeed(page);
+    return getFeed();
   }
 
   @override
@@ -688,7 +665,7 @@ class _$GetFeed implements GetFeed {
     TResult initialEvent(),
     TResult createPost(String caption, File image),
     TResult getCurrentUser(),
-    TResult getFeed(int page),
+    TResult getFeed(),
     TResult getPostById(String id),
     TResult getUserById(String id),
     TResult likePost(String id),
@@ -699,7 +676,7 @@ class _$GetFeed implements GetFeed {
   }) {
     assert(orElse != null);
     if (getFeed != null) {
-      return getFeed(page);
+      return getFeed();
     }
     return orElse();
   }
@@ -755,10 +732,7 @@ class _$GetFeed implements GetFeed {
 }
 
 abstract class GetFeed implements CoreEvent {
-  const factory GetFeed({int page}) = _$GetFeed;
-
-  int get page;
-  $GetFeedCopyWith<GetFeed> get copyWith;
+  const factory GetFeed() = _$GetFeed;
 }
 
 /// @nodoc
@@ -823,7 +797,7 @@ class _$GetPostById implements GetPostById {
     @required TResult initialEvent(),
     @required TResult createPost(String caption, File image),
     @required TResult getCurrentUser(),
-    @required TResult getFeed(int page),
+    @required TResult getFeed(),
     @required TResult getPostById(String id),
     @required TResult getUserById(String id),
     @required TResult likePost(String id),
@@ -850,7 +824,7 @@ class _$GetPostById implements GetPostById {
     TResult initialEvent(),
     TResult createPost(String caption, File image),
     TResult getCurrentUser(),
-    TResult getFeed(int page),
+    TResult getFeed(),
     TResult getPostById(String id),
     TResult getUserById(String id),
     TResult likePost(String id),
@@ -985,7 +959,7 @@ class _$GetUserById implements GetUserById {
     @required TResult initialEvent(),
     @required TResult createPost(String caption, File image),
     @required TResult getCurrentUser(),
-    @required TResult getFeed(int page),
+    @required TResult getFeed(),
     @required TResult getPostById(String id),
     @required TResult getUserById(String id),
     @required TResult likePost(String id),
@@ -1012,7 +986,7 @@ class _$GetUserById implements GetUserById {
     TResult initialEvent(),
     TResult createPost(String caption, File image),
     TResult getCurrentUser(),
-    TResult getFeed(int page),
+    TResult getFeed(),
     TResult getPostById(String id),
     TResult getUserById(String id),
     TResult likePost(String id),
@@ -1145,7 +1119,7 @@ class _$LikePost implements LikePost {
     @required TResult initialEvent(),
     @required TResult createPost(String caption, File image),
     @required TResult getCurrentUser(),
-    @required TResult getFeed(int page),
+    @required TResult getFeed(),
     @required TResult getPostById(String id),
     @required TResult getUserById(String id),
     @required TResult likePost(String id),
@@ -1172,7 +1146,7 @@ class _$LikePost implements LikePost {
     TResult initialEvent(),
     TResult createPost(String caption, File image),
     TResult getCurrentUser(),
-    TResult getFeed(int page),
+    TResult getFeed(),
     TResult getPostById(String id),
     TResult getUserById(String id),
     TResult likePost(String id),
@@ -1284,7 +1258,7 @@ class _$Logout implements Logout {
     @required TResult initialEvent(),
     @required TResult createPost(String caption, File image),
     @required TResult getCurrentUser(),
-    @required TResult getFeed(int page),
+    @required TResult getFeed(),
     @required TResult getPostById(String id),
     @required TResult getUserById(String id),
     @required TResult likePost(String id),
@@ -1311,7 +1285,7 @@ class _$Logout implements Logout {
     TResult initialEvent(),
     TResult createPost(String caption, File image),
     TResult getCurrentUser(),
-    TResult getFeed(int page),
+    TResult getFeed(),
     TResult getPostById(String id),
     TResult getUserById(String id),
     TResult likePost(String id),
@@ -1442,7 +1416,7 @@ class _$UnlikePost implements UnlikePost {
     @required TResult initialEvent(),
     @required TResult createPost(String caption, File image),
     @required TResult getCurrentUser(),
-    @required TResult getFeed(int page),
+    @required TResult getFeed(),
     @required TResult getPostById(String id),
     @required TResult getUserById(String id),
     @required TResult likePost(String id),
@@ -1469,7 +1443,7 @@ class _$UnlikePost implements UnlikePost {
     TResult initialEvent(),
     TResult createPost(String caption, File image),
     TResult getCurrentUser(),
-    TResult getFeed(int page),
+    TResult getFeed(),
     TResult getPostById(String id),
     TResult getUserById(String id),
     TResult likePost(String id),
@@ -1583,7 +1557,7 @@ class _$RefreshFeed implements RefreshFeed {
     @required TResult initialEvent(),
     @required TResult createPost(String caption, File image),
     @required TResult getCurrentUser(),
-    @required TResult getFeed(int page),
+    @required TResult getFeed(),
     @required TResult getPostById(String id),
     @required TResult getUserById(String id),
     @required TResult likePost(String id),
@@ -1610,7 +1584,7 @@ class _$RefreshFeed implements RefreshFeed {
     TResult initialEvent(),
     TResult createPost(String caption, File image),
     TResult getCurrentUser(),
-    TResult getFeed(int page),
+    TResult getFeed(),
     TResult getPostById(String id),
     TResult getUserById(String id),
     TResult likePost(String id),

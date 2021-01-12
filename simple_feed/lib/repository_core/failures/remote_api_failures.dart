@@ -7,8 +7,10 @@ abstract class RemoteApiFailures<T> with _$RemoteApiFailures<T> {
   const factory RemoteApiFailures.failedToVerify() = FailedToVerify<T>;
   const factory RemoteApiFailures.failedToLogout() = FailedToLogout<T>;
   const factory RemoteApiFailures.failedToCreatePost() = FailedToCreatePost<T>;
-  const factory RemoteApiFailures.failedToLikePost() = FailedToLikePost<T>;
-  const factory RemoteApiFailures.failedToUnLikePost() = FailedToUnLikePost<T>;
+  const factory RemoteApiFailures.failedToLikePost({@required String id}) =
+      FailedToLikePost<T>;
+  const factory RemoteApiFailures.failedToUnLikePost({@required String id}) =
+      FailedToUnLikePost<T>;
   const factory RemoteApiFailures.failedToGetPostById() =
       FailedToGetPostById<T>;
   const factory RemoteApiFailures.failedToGetFeed() = FailedToGetFeed<T>;

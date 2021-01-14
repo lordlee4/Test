@@ -13,7 +13,9 @@ class RemoteApi implements RemoteApiAbstract {
   Dio _dio;
   String token;
   final FirebaseAuth _firebaseAuth;
-  String baseUrl = "https://simple-feed-test.herokuapp.com/v1/";
+  // String baseUrl = "https://simple-feed-test.herokuapp.com/v1/";
+
+  String baseUrl = "https://simple-feed-prod.herokuapp.com/";
   RemoteApi(this._dio, this._firebaseAuth);
 
   Future setHeader() async {
@@ -31,6 +33,7 @@ class RemoteApi implements RemoteApiAbstract {
   @override
   Future<Either<RemoteApiFailures, PostModel>> createPost(
       {String caption, File image}) async {
+    await setHeader();
     FormData formdata = FormData.fromMap({
       "caption": caption,
       "image": await MultipartFile.fromFile(image.path,
@@ -46,6 +49,7 @@ class RemoteApi implements RemoteApiAbstract {
 
   @override
   Future<Either<RemoteApiFailures, UserModel>> getCurrentUser() async {
+    await setHeader();
     try {
       final response = await _dio.get(baseUrl + "users/mine");
 
@@ -57,6 +61,7 @@ class RemoteApi implements RemoteApiAbstract {
 
   @override
   Future<Either<RemoteApiFailures, FeedModel>> getFeed({int page}) async {
+    await setHeader();
     try {
       final response =
           await _dio.get(baseUrl + "posts/", queryParameters: {"page": page});
@@ -68,6 +73,7 @@ class RemoteApi implements RemoteApiAbstract {
 
   @override
   Future<Either<RemoteApiFailures, PostModel>> getPostById({String id}) async {
+    await setHeader();
     try {
       final response = await _dio.get(
         baseUrl + "posts/${id}",
@@ -80,6 +86,7 @@ class RemoteApi implements RemoteApiAbstract {
 
   @override
   Future<Either<RemoteApiFailures, UserModel>> getUserById({String id}) async {
+    await setHeader();
     try {
       final response = await _dio.get(
         baseUrl + "users/${id}",
@@ -92,6 +99,7 @@ class RemoteApi implements RemoteApiAbstract {
 
   @override
   Future<Either<RemoteApiFailures, String>> likePost({String id}) async {
+    await setHeader();
     try {
       final response = await _dio.put(baseUrl + "posts/like/${id}");
       return right(id);
@@ -102,6 +110,7 @@ class RemoteApi implements RemoteApiAbstract {
 
   @override
   Future<Either<RemoteApiFailures, Unit>> logout() async {
+    await setHeader();
     try {
       final response = await _dio.post(baseUrl + "accounts/logout");
       return right(unit);
@@ -112,6 +121,7 @@ class RemoteApi implements RemoteApiAbstract {
 
   @override
   Future<Either<RemoteApiFailures, String>> unlikePost({String id}) async {
+    await setHeader();
     try {
       final response = await _dio.put(baseUrl + "posts/unlike/${id}");
       return right(id);
@@ -123,9 +133,12 @@ class RemoteApi implements RemoteApiAbstract {
   @override
   Future<Either<RemoteApiFailures, UserModel>> verify(
       {String phonenumber}) async {
+    await setHeader();
     try {
+      print("hallu$_dio.options.headers");
       final response = await _dio.post(baseUrl + "accounts/verify",
           data: {"phoneNumber": phonenumber});
+      print("hey $response");
       return right(UserModel.fromJson(response.data as Map<String, dynamic>));
     } catch (error) {
       return left(const RemoteApiFailures.failedToVerify());

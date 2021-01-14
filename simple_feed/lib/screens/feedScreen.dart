@@ -32,7 +32,7 @@ class Feeds extends StatelessWidget {
       ),
       body: BlocProvider<CoreBloc>(
         create: (context) => getIt<CoreBloc>(),
-        child: _buildBody(context),
+        child: BuildBody(),
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(
@@ -43,8 +43,16 @@ class Feeds extends StatelessWidget {
       ),
     );
   }
+}
 
-  Widget _buildBody(BuildContext context) {
+class BuildBody extends StatefulWidget {
+  @override
+  _BuildBodyState createState() => _BuildBodyState();
+}
+
+class _BuildBodyState extends State<BuildBody> {
+  @override
+  Widget build(BuildContext context) {
     CoreBloc _coreBloc = BlocProvider.of<CoreBloc>(context);
     final data = MediaQuery.of(context);
     List<PostModel> postModelList = [];
@@ -60,6 +68,7 @@ class Feeds extends StatelessWidget {
         state.maybeMap(
           orElse: () {},
           feed: (Feed) {
+            print(Feed);
             Feed.feedFailureOrSuccess.fold(
                 (feedFailureOrSuccess) => {
                       Scaffold.of(context).showSnackBar(SnackBar(content: null))
@@ -69,8 +78,10 @@ class Feeds extends StatelessWidget {
                         {
                           postModelList.clear(),
                         },
-                      feedModel.docs
-                          .map((postModel) => {postModelList.add(postModel)})
+                      feedModel.docs.forEach((postModel) => {
+                            postModelList.add(postModel),
+                            print(postModel),
+                          }),
                     });
           },
         );
@@ -90,10 +101,12 @@ class Feeds extends StatelessWidget {
                 return true;
               },
               child: Expanded(
-                child: Column(
-                  children: postModelList
-                      .map((postModel) => PostModelView(context, postModel))
-                      .toList(),
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: postModelList
+                        .map((postModel) => PostModelView(context, postModel))
+                        .toList(),
+                  ),
                 ),
               ),
             ),
@@ -102,82 +115,87 @@ class Feeds extends StatelessWidget {
       },
     );
   }
+}
 
-  Widget PostModelView(BuildContext context, PostModel postModel) {
-    final data = MediaQuery.of(context);
-    var isLiked = postModel.isLiked;
-    var postColor = isLiked ? Colors.red : Colors.white;
-    CoreBloc _coreBloc = BlocProvider.of<CoreBloc>(context);
-    return BlocConsumer<CoreBloc, CoreState>(
-      listener: (context, state) {
-        // TODO: implement listener
-        state.maybeMap(
-            orElse: () {},
-            likedPost: (LikedPost) {
-              LikedPost.likeFailureOrSuccess.fold(
-                  (failedToLikePost) => {
-                        failedToLikePost.maybeMap(
-                            orElse: () {},
-                            failedToLikePost: (id) {
-                              if (id == postModel.id) {
-                                isLiked = !isLiked;
-                              }
-                            })
-                      },
-                  (id) => {
-                        if (id == postModel.id)
-                          {
-                            //TODO: create a notification that says you liked it
-                          }
-                      });
-            },
-            unLikedPost: (UnlikedPost) {
-              UnlikedPost.unLikeFailureOrSuccess.fold(
-                  (failedToUnLikePost) => {
-                        failedToUnLikePost.maybeMap(
-                            orElse: () {},
-                            failedToLikePost: (id) {
-                              if (id == postModel.id) {
-                                isLiked = !isLiked;
-                              }
-                            })
-                      },
-                  (id) => {
-                        if (id == postModel.id)
-                          {
-                            //TODO: create a notification that says you unliked it
-                          }
-                      });
-            });
-      },
-      builder: (context, state) {
-        return GestureDetector(
-          onTap: () {},
-          child: SizedBox(
-            height: 300,
-            child: Column(children: [
-              Expanded(
-                flex: 2,
-                child: Container(
-                    width: data.size.width,
-                    child: CachedNetworkImage(
-                      fit: BoxFit.fitWidth,
-                      imageUrl: postModel.image,
-                      placeholder: (context, url) => Center(
-                          child: CircularProgressIndicator(strokeWidth: 2)),
-                      placeholderFadeInDuration: Duration(milliseconds: 300),
-                      errorWidget: (context, url, error) =>
-                          Container(color: Colors.grey),
-                    )),
-              ),
-              SizedBox(
-                height: 20.0,
-              ),
-              Row(
+Widget PostModelView(BuildContext context, PostModel postModel) {
+  const imageBaseUrl =
+      "https://storage.googleapis.com/simple-feed-704cd.appspot.com/";
+  final data = MediaQuery.of(context);
+  var isLiked = postModel.isLiked;
+  var postColor = isLiked ? Colors.red : Colors.white;
+  CoreBloc _coreBloc = BlocProvider.of<CoreBloc>(context);
+  return BlocConsumer<CoreBloc, CoreState>(
+    listener: (context, state) {
+      // TODO: implement listener
+      state.maybeMap(
+          orElse: () {},
+          likedPost: (LikedPost) {
+            LikedPost.likeFailureOrSuccess.fold(
+                (failedToLikePost) => {
+                      failedToLikePost.maybeMap(
+                          orElse: () {},
+                          failedToLikePost: (id) {
+                            if (id == postModel.id) {
+                              isLiked = !isLiked;
+                            }
+                          })
+                    },
+                (id) => {
+                      if (id == postModel.id)
+                        {
+                          //TODO: create a notification that says you liked it
+                        }
+                    });
+          },
+          unLikedPost: (UnlikedPost) {
+            UnlikedPost.unLikeFailureOrSuccess.fold(
+                (failedToUnLikePost) => {
+                      failedToUnLikePost.maybeMap(
+                          orElse: () {},
+                          failedToLikePost: (id) {
+                            if (id == postModel.id) {
+                              isLiked = !isLiked;
+                            }
+                          })
+                    },
+                (id) => {
+                      if (id == postModel.id)
+                        {
+                          //TODO: create a notification that says you unliked it
+                        }
+                    });
+          });
+    },
+    builder: (context, state) {
+      return GestureDetector(
+        onTap: () {},
+        child: SizedBox(
+          height: data.size.height * .35,
+          child: Column(children: [
+            Expanded(
+              flex: 2,
+              child: Container(
+                  width: data.size.width,
+                  child: CachedNetworkImage(
+                    fit: BoxFit.fitWidth,
+                    imageUrl: imageBaseUrl + postModel.image,
+                    placeholder: (context, url) => Center(
+                        child: CircularProgressIndicator(strokeWidth: 2)),
+                    placeholderFadeInDuration: Duration(milliseconds: 300),
+                    errorWidget: (context, url, error) =>
+                        Container(color: Colors.grey),
+                  )),
+            ),
+            SizedBox(
+              height: 20.0,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(14.0),
+              child: Row(
                 children: [
                   CircleAvatar(
                     backgroundColor: Colors.black,
-                    radius: 40,
+                    radius: 10,
                     child: Icon(
                       Icons.person,
                       color: Colors.white,
@@ -188,8 +206,9 @@ class Feeds extends StatelessWidget {
                       Text(postModel.user.name),
                       Row(
                         children: [
-                          Text(postModel.user.username),
-                          Text(postModel.user.updated_at),
+                          Text("@$postModel.user.username"),
+                          SizedBox(width: data.size.width * 0.01),
+                          Text(postModel.user.created_at),
                         ],
                       ),
                     ],
@@ -217,13 +236,13 @@ class Feeds extends StatelessWidget {
                   ),
                 ],
               ),
-              Text(postModel.user.bio),
-            ]),
-          ),
-        );
-      },
-    );
-  }
+            ),
+            Text(postModel.user.bio),
+          ]),
+        ),
+      );
+    },
+  );
 }
 
 // (context, index) {

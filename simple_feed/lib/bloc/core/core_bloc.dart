@@ -17,10 +17,9 @@ part 'core_bloc.freezed.dart';
 class CoreBloc extends Bloc<CoreEvent, CoreState> {
   final RemoteApi _remoteApi;
   int pageNumber = 1;
-  CoreBloc(this._remoteApi) : super(const CoreState.initialState());
-
-  @override
-  CoreState get initialState => const CoreState.initialState();
+  CoreBloc(this._remoteApi) : super(const CoreState.initialState()) {
+    add(const InitialEvent());
+  }
 
   @override
   Stream<CoreState> mapEventToState(CoreEvent event) async* {

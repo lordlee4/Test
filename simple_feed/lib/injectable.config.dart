@@ -34,7 +34,7 @@ GetIt $initGetIt(
       () => firebaseInjectableModule.firebaseStorage);
   gh.lazySingleton<RemoteApi>(() => RemoteApi(get<Dio>(), get<FirebaseAuth>()));
   gh.lazySingleton<UserRepository>(() => UserRepository(get<FirebaseAuth>()));
-  gh.factory<AuthBloc>(() => AuthBloc(get<UserRepository>()));
+  gh.factory<AuthBloc>(() => AuthBloc(get<UserRepository>(), get<RemoteApi>()));
   gh.factory<CoreBloc>(() => CoreBloc(get<RemoteApi>()));
   return get;
 }

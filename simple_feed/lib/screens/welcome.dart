@@ -59,7 +59,7 @@ class _LoginFormState extends State<LoginForm> {
           );
       } else if (state is AuthenticatedState) {
         Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => Post()));
+            context, MaterialPageRoute(builder: (context) => Feeds()));
       }
     }, builder: (context, state) {
       print(state);

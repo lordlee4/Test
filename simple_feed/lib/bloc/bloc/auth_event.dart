@@ -37,3 +37,8 @@ class LoginExceptionEvent extends AuthEvent {
   @override
   List<Object> get props => [message];
 }
+
+class LoggedOutEvent extends AuthEvent {
+  @override
+  List<Object> get props => [];
+}

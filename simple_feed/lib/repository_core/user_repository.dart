@@ -36,7 +36,6 @@ class UserRepository {
         return left(unit);
       }
     } catch (e) {
-      print("heys" + e.toString());
       return left(unit);
     }
   }
@@ -55,7 +54,6 @@ class UserRepository {
 
   void _smsCodeSent(String verificationCode, int code) {
     _verificationCode = verificationCode;
-    print("hey" + code.toString());
   }
 
   String _verificationFailed(FirebaseAuthException authException) {
@@ -64,6 +62,17 @@ class UserRepository {
 
   void _codeAutoRetrievalTimeout(String verificationCode) {
     _verificationCode = verificationCode;
+  }
+
+  Future<bool> signOut() async {
+    try {
+      Future.wait([_firebaseAuth.signOut()]);
+      return true;
+    } on FirebaseAuthException catch (e) {
+      return false;
+    } catch (e) {
+      rethrow;
+    }
   }
 
   Future<Either<Unit, Unit>> signInWithSmsCode(String smsCode) async {
@@ -78,11 +87,9 @@ class UserRepository {
       } else {
         UserCredential userCredential =
             await _firebaseAuth.signInWithCredential(authCredential);
-        print("john" + userCredential.toString());
         return userCredential == null ? left(unit) : right(unit);
       }
     } catch (e) {
-      print("hey" + e.toString());
       return left(unit);
     }
   }

@@ -1,3 +1,4 @@
+import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -13,22 +14,24 @@ class UserRepository {
 
   UserRepository(this._firebaseAuth);
 
-  Future<void> verifyPhoneNumber(String phoneNumber) async {
+  Future<Either<Unit, Unit>> verifyPhoneNumber(String phoneNumber) async {
     try {
-      await _firebaseAuth.verifyPhoneNumber(
-          phoneNumber: "+251" + phoneNumber,
-          verificationCompleted: (authCredential) =>
-              _verificationCompleted(authCredential),
-          verificationFailed: (authException) =>
-              _verificationFailed(authException),
-          codeSent: (verificationCode, [code]) =>
-              _smsCodeSent(verificationCode, [code]),
-          codeAutoRetrievalTimeout: (verificationCode) =>
-              _codeAutoRetrievalTimeout(verificationCode));
-    } on FirebaseAuthException catch (e) {
-      return e.message;
+      _firebaseAuth
+          .verifyPhoneNumber(
+              phoneNumber: "+251" + phoneNumber,
+              verificationCompleted: (authCredential) => {},
+              verificationFailed: (authException) =>
+                  {print("DASFDSAFDSAFADSF"), throw ('hey')},
+              codeSent: (verificationCode, [code]) => {
+                    _smsCodeSent(verificationCode, [code]),
+                  },
+              codeAutoRetrievalTimeout: (verificationCode) => NullThrownError())
+          .then((value) => {});
+
+      return right(unit);
     } catch (e) {
-      rethrow;
+      print("heys" + e.toString());
+      return left(unit);
     }
   }
 
@@ -46,6 +49,7 @@ class UserRepository {
 
   void _smsCodeSent(String verificationCode, List<int> code) {
     _verificationCode = verificationCode;
+    print(code);
   }
 
   String _verificationFailed(FirebaseAuthException authException) {
@@ -56,16 +60,24 @@ class UserRepository {
     _verificationCode = verificationCode;
   }
 
-  // ignore: missing_return
-  Future<UserEntity> signInWithSmsCode(String smsCode) async {
-    debugPrint('verify in sign in' + _verificationCode);
-    debugPrint("Sms Code" + smsCode.toString());
+  Future<Either<Unit, Unit>> signInWithSmsCode(String smsCode) async {
+    print('verify in sign in' + _verificationCode);
+    print("Sms Code" + smsCode.toString());
+    try {
+      AuthCredential authCredential = PhoneAuthProvider.credential(
+          verificationId: _verificationCode, smsCode: smsCode);
+      print(authCredential);
 
-    UserEntity _user;
-    AuthCredential authCredential = PhoneAuthProvider.credential(
-        verificationId: _verificationCode, smsCode: smsCode);
-    _firebaseAuth.signInWithCredential(authCredential).then((authResult) {
-      _user = UserEntity.fromFirebaseUser(authResult.user);
-    });
+      if (authCredential.token == null) {
+        return left(unit);
+      } else {
+        UserCredential userCredential =
+            await _firebaseAuth.signInWithCredential(authCredential);
+        return userCredential == null ? left(unit) : right(unit);
+      }
+    } catch (e) {
+      print("hey" + e.toString());
+      return left(unit);
+    }
   }
 }

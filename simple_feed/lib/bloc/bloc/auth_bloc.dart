@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/rendering.dart';
 import 'package:injectable/injectable.dart';
@@ -16,7 +17,9 @@ part 'auth_state.dart';
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final UserRepository _userRepository;
 
-  AuthBloc(this._userRepository) : super(UninitializedState());
+  AuthBloc(this._userRepository) : super(UninitializedState()) {
+    add(AppStart());
+  }
 
   @factoryMethod
   @override
@@ -37,7 +40,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     try {
       final isAuthenticated = await _userRepository.isAuthenticated();
       if (isAuthenticated) {
-        yield AuthenticatedState(user: await _userRepository.getUser());
+        yield AuthenticatedState();
       } else {
         yield UnAuthenticatedState();
       }
@@ -47,13 +50,20 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   Stream<AuthState> mapSendCodeState(AuthEvent event) async* {
-    await _userRepository.verifyPhoneNumber((event as SendCode).phoneNumber);
-    yield CodeSentState();
+    Either<Unit, Unit> sentVerificationCodeFailureOrSuccess =
+        await _userRepository
+            .verifyPhoneNumber((event as SendCode).phoneNumber);
+    yield sentVerificationCodeFailureOrSuccess.fold(
+        (l) => FailedToSendCodeState(message: "Cannot Send Code"),
+        (r) => CodeSentState());
   }
 
   Stream<AuthState> mapVerifyPhoneNumberState(AuthEvent event) async* {
-    UserEntity _user = await _userRepository
-        .signInWithSmsCode((event as VerifyPhoneNumber).smsCode);
-    yield AuthenticatedState(user: _user);
+    Either<Unit, Unit> smsCodeVerificationFailureOrSuccess =
+        await _userRepository
+            .signInWithSmsCode((event as VerifyPhoneNumber).smsCode);
+    yield smsCodeVerificationFailureOrSuccess.fold(
+        (l) => OtpExceptionState(message: "Invalid Otp"),
+        (r) => AuthenticatedState());
   }
 }

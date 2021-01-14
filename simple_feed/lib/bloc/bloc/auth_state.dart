@@ -7,14 +7,28 @@ class AuthInitial extends AuthState {}
 
 class UninitializedState extends AuthState {}
 
-class AuthenticatedState extends AuthState {
-  final UserEntity user;
-
-  AuthenticatedState({@required this.user});
-  @override
-  List<Object> get props => [user];
-}
+class AuthenticatedState extends AuthState {}
 
 class UnAuthenticatedState extends AuthState {}
 
 class CodeSentState extends AuthState {}
+
+class FailedToSendCodeState extends AuthState {
+  String message;
+
+  FailedToSendCodeState({this.message});
+
+  @override
+  // TODO: implement props
+  List<Object> get props => [message];
+}
+
+class OtpExceptionState extends AuthState {
+  String message;
+
+  OtpExceptionState({this.message});
+
+  @override
+  // TODO: implement props
+  List<Object> get props => [message];
+}

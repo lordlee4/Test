@@ -45,8 +45,7 @@ class Feeds extends StatelessWidget {
   }
 
   Widget _buildBody(BuildContext context) {
-    CoreBloc _coreBloc;
-    _coreBloc = BlocProvider.of<CoreBloc>(context);
+    CoreBloc _coreBloc = BlocProvider.of<CoreBloc>(context);
     final data = MediaQuery.of(context);
     List<PostModel> postModelList = [];
     return BlocConsumer<CoreBloc, CoreState>(

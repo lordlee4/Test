@@ -2,13 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:simple_feed/bloc/bloc/auth_bloc.dart';
 import 'package:simple_feed/injectable.dart';
+import 'package:simple_feed/screens/feedScreen.dart';
+import 'package:simple_feed/screens/postScreen.dart';
 
 class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<AuthBloc>(
       create: (context) => getIt<AuthBloc>(),
-      child: LoginForm(),
+      child: Scaffold(
+        body: LoginForm(),
+      ),
     );
   }
 }
@@ -19,42 +23,69 @@ class LoginForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<LoginForm> {
+  AuthBloc _authBloc;
   final _formKey = GlobalKey<FormState>();
   final _phoneTextController = TextEditingController();
   final _otpTextController = TextEditingController();
-  AuthBloc _authBloc;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    _authBloc = BlocProvider.of<AuthBloc>(context);
-    return BlocConsumer<AuthBloc, AuthState>(listener: (context, loginState) {
-      if (loginState is UninitializedState) {
-        _authBloc.add(AppStart());
-        const Center(
+    AuthBloc _authBloc = BlocProvider.of<AuthBloc>(context);
+
+    final data = MediaQuery.of(context);
+    return BlocConsumer<AuthBloc, AuthState>(listener: (context, state) {
+      if (state is FailedToSendCodeState || state is OtpExceptionState) {
+        String message;
+        if (state is FailedToSendCodeState) {
+          message = state.message;
+        } else if (state is OtpExceptionState) {
+          message = state.message;
+        }
+        Scaffold.of(context)
+          ..hideCurrentSnackBar()
+          ..showSnackBar(
+            SnackBar(
+              content: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [Text(message), Icon(Icons.error)],
+              ),
+              backgroundColor: Colors.red,
+            ),
+          );
+      } else if (state is AuthenticatedState) {
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => Post()));
+      }
+    }, builder: (context, state) {
+      print(state);
+      if (state is UninitializedState) {
+        return Center(
             child: CircularProgressIndicator(
           value: null,
           strokeWidth: 5.0,
         ));
-      } else if (loginState is CodeSentState) {
+      } else if (state is CodeSentState || state is OtpExceptionState) {
         return _otpInput(context);
-      } else if (loginState is UnAuthenticatedState) {
+      } else if (state is UnAuthenticatedState ||
+          state is FailedToSendCodeState) {
         return _numberInput(context);
-      } else if (loginState is AuthenticatedState) {
-        Scaffold.of(context)
-          ..hideCurrentSnackBar()
-          ..showSnackBar(SnackBar(
-            content: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [Text("Authenticated Successfully"), Icon(Icons.check)],
-            ),
-            backgroundColor: Theme.of(context).textTheme.button.color,
-          ));
+      } else {
+        return Center(
+            child: CircularProgressIndicator(
+          value: null,
+          strokeWidth: 5.0,
+        ));
       }
-    }, builder: (context, state) {
-      return _numberInput(context);
     });
   }
 
   Widget _numberInput(BuildContext context) {
+    AuthBloc _authBloc = BlocProvider.of<AuthBloc>(context);
     final data = MediaQuery.of(context);
     return Scaffold(
       body: Center(
@@ -114,8 +145,11 @@ class _LoginFormState extends State<LoginForm> {
                 constraints: const BoxConstraints(maxWidth: 500),
                 child: RaisedButton(
                   onPressed: () {
-                    _formKey.currentState.validate();
-                    _sendCode(_phoneTextController.text);
+                    if (_formKey.currentState.validate()) {
+                      // _sendCode(_phoneTextController.text);
+                      _authBloc.add(
+                          SendCode(phoneNumber: _phoneTextController.text));
+                    }
                   },
                   color: Color(0xFFE9446A),
                   shape: RoundedRectangleBorder(
@@ -142,7 +176,7 @@ class _LoginFormState extends State<LoginForm> {
   }
 
   _sendCode(String phoneNumber) async {
-    this._authBloc.add(SendCode(phoneNumber: phoneNumber));
+    AuthBloc _authBloc = BlocProvider.of<AuthBloc>(context);
   }
 
   String validateMobile(String value) {
@@ -154,8 +188,22 @@ class _LoginFormState extends State<LoginForm> {
   }
 
   Widget _otpInput(BuildContext context) {
+    AuthBloc _authBloc = BlocProvider.of<AuthBloc>(context);
     final data = MediaQuery.of(context);
     return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.white,
+        title: IconButton(
+          icon: Icon(
+            Icons.arrow_back_ios,
+            color: Colors.black,
+          ),
+          onPressed: () {
+            _authBloc.add(AppStart());
+          },
+        ),
+      ),
       body: Center(
         child: SingleChildScrollView(
           child: Column(
@@ -224,7 +272,11 @@ class _LoginFormState extends State<LoginForm> {
                 constraints: const BoxConstraints(maxWidth: 500),
                 child: RaisedButton(
                   onPressed: () {
-                    _formKey.currentState.validate();
+                    if (_formKey.currentState.validate()) {
+                      // _signInWithCode(_otpTextController.text);
+                      _authBloc.add(
+                          VerifyPhoneNumber(smsCode: _otpTextController.text));
+                    }
                   },
                   color: Color(0xFFE9446A),
                   shape: RoundedRectangleBorder(
@@ -248,6 +300,14 @@ class _LoginFormState extends State<LoginForm> {
         ),
       ),
     );
+  }
+
+  _signInWithCode(String smsCode) {
+    AuthBloc _authBloc = BlocProvider.of<AuthBloc>(context);
+    // now that the user has entered the sms code, its time to signIn the user with their phone number
+    _authBloc.add(VerifyPhoneNumber(
+        smsCode:
+            smsCode)); // this event will either send back Authenticated or UnAuthenticated
   }
 
   String validateNumber(String value) {

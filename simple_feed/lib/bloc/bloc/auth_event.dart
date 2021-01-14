@@ -29,3 +29,11 @@ class VerifyPhoneNumber extends AuthEvent {
   @override
   List<Object> get props => [smsCode];
 }
+
+class LoginExceptionEvent extends AuthEvent {
+  String message;
+
+  LoginExceptionEvent(this.message);
+  @override
+  List<Object> get props => [message];
+}

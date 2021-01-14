@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -15,20 +16,25 @@ class UserRepository {
   UserRepository(this._firebaseAuth);
 
   Future<Either<Unit, Unit>> verifyPhoneNumber(String phoneNumber) async {
-    try {
-      _firebaseAuth
-          .verifyPhoneNumber(
-              phoneNumber: "+251" + phoneNumber,
-              verificationCompleted: (authCredential) => {},
-              verificationFailed: (authException) =>
-                  {print("DASFDSAFDSAFADSF"), throw ('hey')},
-              codeSent: (verificationCode, [code]) => {
-                    _smsCodeSent(verificationCode, [code]),
-                  },
-              codeAutoRetrievalTimeout: (verificationCode) => NullThrownError())
-          .then((value) => {});
+    bool hasConnection = await DataConnectionChecker().hasConnection;
 
-      return right(unit);
+    try {
+      if (hasConnection == true) {
+        _verificationCode = '';
+        await _firebaseAuth.verifyPhoneNumber(
+            phoneNumber: "+251" + phoneNumber,
+            verificationCompleted: (authCredential) =>
+                _verificationCompleted(authCredential),
+            verificationFailed: (authException) =>
+                _verificationFailed(authException),
+            codeSent: (verificationCode, code) =>
+                _smsCodeSent(verificationCode, code),
+            codeAutoRetrievalTimeout: (verificationCode) =>
+                _codeAutoRetrievalTimeout(verificationCode));
+        return right(unit);
+      } else {
+        return left(unit);
+      }
     } catch (e) {
       print("heys" + e.toString());
       return left(unit);
@@ -47,9 +53,9 @@ class UserRepository {
 
   void _verificationCompleted(AuthCredential authCredential) {}
 
-  void _smsCodeSent(String verificationCode, List<int> code) {
+  void _smsCodeSent(String verificationCode, int code) {
     _verificationCode = verificationCode;
-    print(code);
+    print("hey" + code.toString());
   }
 
   String _verificationFailed(FirebaseAuthException authException) {
@@ -66,13 +72,13 @@ class UserRepository {
     try {
       AuthCredential authCredential = PhoneAuthProvider.credential(
           verificationId: _verificationCode, smsCode: smsCode);
-      print(authCredential);
 
-      if (authCredential.token == null) {
+      if (authCredential == null) {
         return left(unit);
       } else {
         UserCredential userCredential =
             await _firebaseAuth.signInWithCredential(authCredential);
+        print("john" + userCredential.toString());
         return userCredential == null ? left(unit) : right(unit);
       }
     } catch (e) {

@@ -83,7 +83,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         .fold((l) => OtpExceptionState(message: "Invalid Otp"), (r) async {
       Either<RemoteApiFailures, UserModel> verifyFailureOrSuccess =
           await _remoteApi.verify(phonenumber: _phoneNumber);
-      return verifyFailureOrSuccess.fold((l) {
+      return smsCodeVerificationFailureOrSuccess.fold((l) {
         add(LoggedOutEvent());
         return OtpExceptionState(message: "Invalid Otp");
       }, (r) => AuthenticatedState());

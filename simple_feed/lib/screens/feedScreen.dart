@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:simple_feed/bloc/bloc/auth_bloc.dart';
 import 'package:simple_feed/bloc/core/core_bloc.dart';
 import 'package:simple_feed/injectable.dart';
 import 'package:simple_feed/models/response_models.dart';
@@ -9,37 +10,43 @@ class Feeds extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final data = MediaQuery.of(context);
-    return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.white,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Center(
-              child: Text(
-                "Feed",
-                style: TextStyle(color: Colors.black),
+    return BlocProvider<AuthBloc>(
+      create: (context) => getIt<AuthBloc>(),
+      child: Scaffold(
+        appBar: AppBar(
+          elevation: 0,
+          backgroundColor: Colors.white,
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Center(
+                child: Text(
+                  "Feed",
+                  style: const TextStyle(color: Colors.black),
+                ),
               ),
-            ),
-            IconButton(
-              icon: Icon(Icons.exit_to_app),
-              onPressed: () {},
-              color: Colors.black,
-            ),
-          ],
+              IconButton(
+                icon: Icon(Icons.exit_to_app),
+                onPressed: () {
+                  AuthBloc _authBloc = BlocProvider.of<AuthBloc>(context);
+                  _authBloc.add(LoggedOutEvent());
+                },
+                color: Colors.black,
+              ),
+            ],
+          ),
         ),
-      ),
-      body: BlocProvider<CoreBloc>(
-        create: (context) => getIt<CoreBloc>(),
-        child: BuildBody(),
-      ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(
-          Icons.add,
-          size: 40,
+        body: BlocProvider<CoreBloc>(
+          create: (context) => getIt<CoreBloc>(),
+          child: BuildBody(),
         ),
-        onPressed: () {},
+        floatingActionButton: FloatingActionButton(
+          child: Icon(
+            Icons.add,
+            size: 40,
+          ),
+          onPressed: () {},
+        ),
       ),
     );
   }
@@ -170,8 +177,9 @@ Widget PostModelView(BuildContext context, PostModel postModel) {
       return GestureDetector(
         onTap: () {},
         child: SizedBox(
-          height: data.size.height * .35,
-          child: Column(children: [
+          height: data.size.height * .4,
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Expanded(
               flex: 2,
               child: Container(
@@ -186,58 +194,75 @@ Widget PostModelView(BuildContext context, PostModel postModel) {
                         Container(color: Colors.grey),
                   )),
             ),
-            SizedBox(
-              height: 20.0,
-            ),
             Padding(
               padding: const EdgeInsets.all(14.0),
               child: Row(
                 children: [
                   CircleAvatar(
                     backgroundColor: Colors.black,
-                    radius: 10,
+                    radius: 22,
                     child: Icon(
                       Icons.person,
                       color: Colors.white,
                     ),
                   ),
+                  SizedBox(
+                    width: data.size.width * .03,
+                  ),
                   Column(
                     children: [
-                      Text(postModel.user.name),
+                      Text(
+                        postModel.user.name,
+                        style: const TextStyle(
+                            color: Colors.black, fontWeight: FontWeight.bold),
+                      ),
                       Row(
                         children: [
-                          Text("@$postModel.user.username"),
-                          SizedBox(width: data.size.width * 0.01),
-                          Text(postModel.user.created_at),
+                          Text(
+                              "@" +
+                                  postModel.user.username +
+                                  " " +
+                                  DateTime.parse(postModel.updated_at)
+                                      .second
+                                      .toString() +
+                                  " sec ago",
+                              style: TextStyle(
+                                  color: Theme.of(context)
+                                      .textTheme
+                                      .headline2
+                                      .color,
+                                  fontSize: 12.0)),
+                          SizedBox(width: data.size.width * 0.05),
                         ],
                       ),
                     ],
                   ),
-                  Row(
-                    children: [
-                      IconButton(
-                        icon: Icon(
-                          Icons.favorite,
-                          color: postColor,
-                        ),
-                        onPressed: () {
-                          //TODO:Make is liked false
-                          isLiked = !isLiked;
-                          if (postModel.isLiked) {
-                            _coreBloc.add(CoreEvent.likePost(id: postModel.id));
-                          } else {
-                            _coreBloc
-                                .add(CoreEvent.unlikePost(id: postModel.id));
-                          }
-                        },
-                      ),
-                      Text((postModel.likes).toString()),
-                    ],
+                  SizedBox(
+                    width: data.size.width * 0.3,
                   ),
+                  IconButton(
+                    icon: Icon(
+                      Icons.favorite,
+                      color: Colors.black,
+                    ),
+                    onPressed: () {
+                      //TODO:Make is liked false
+                      isLiked = !isLiked;
+                      if (postModel.isLiked) {
+                        _coreBloc.add(CoreEvent.likePost(id: postModel.id));
+                      } else {
+                        _coreBloc.add(CoreEvent.unlikePost(id: postModel.id));
+                      }
+                    },
+                  ),
+                  Text((postModel.likes).toString()),
                 ],
               ),
             ),
-            Text(postModel.user.bio),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 5),
+              child: Text(postModel.user.bio),
+            ),
           ]),
         ),
       );

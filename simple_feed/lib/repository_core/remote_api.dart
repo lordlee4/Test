@@ -13,9 +13,9 @@ class RemoteApi implements RemoteApiAbstract {
   Dio _dio;
   String token;
   final FirebaseAuth _firebaseAuth;
-  // String baseUrl = "https://simple-feed-test.herokuapp.com/v1/";
+  String baseUrl = "https://simple-feed-test.herokuapp.com/v1/";
 
-  String baseUrl = "https://simple-feed-prod.herokuapp.com/";
+  // String baseUrl = "https://simple-feed-prod.herokuapp.com/";
   RemoteApi(this._dio, this._firebaseAuth);
 
   Future setHeader() async {
@@ -63,7 +63,6 @@ class RemoteApi implements RemoteApiAbstract {
 
   @override
   Future<Either<RemoteApiFailures, FeedModel>> getFeed({int page}) async {
-    await setHeader();
     try {
       final response =
           await _dio.get(baseUrl + "posts/", queryParameters: {"page": page});
@@ -141,6 +140,7 @@ class RemoteApi implements RemoteApiAbstract {
       final response = await _dio.post(baseUrl + "accounts/verify",
           data: {"phoneNumber": "+251$phonenumber"});
       print("hey ${response.data}");
+
       return right(UserModel.fromJson(response.data as Map<String, dynamic>));
     } catch (error) {
       print("Error over here $error  +251$phonenumber");

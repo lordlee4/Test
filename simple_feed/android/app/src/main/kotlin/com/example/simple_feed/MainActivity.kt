@@ -1,4 +1,4 @@
-package com.example.simple_feed
+package com.ahun.simple_feed
 
 import io.flutter.embedding.android.FlutterActivity
 

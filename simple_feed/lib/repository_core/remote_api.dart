@@ -22,10 +22,12 @@ class RemoteApi implements RemoteApiAbstract {
     if (token == null) {
       final user = _firebaseAuth.currentUser;
       token = await user?.getIdToken();
+
       if (token == null) {
         return null;
       }
-      _dio.options.headers["Authorization"] = "Bearer ${token}";
+      print("over here");
+      _dio.options.headers['Authorization'] = "Bearer $token";
     }
     return _dio;
   }
@@ -135,12 +137,13 @@ class RemoteApi implements RemoteApiAbstract {
       {String phonenumber}) async {
     await setHeader();
     try {
-      print("hallu$_dio.options.headers");
+      print("hallu${_dio.options.headers}");
       final response = await _dio.post(baseUrl + "accounts/verify",
-          data: {"phoneNumber": phonenumber});
-      print("hey $response");
+          data: {"phoneNumber": "+251$phonenumber"});
+      print("hey ${response.data}");
       return right(UserModel.fromJson(response.data as Map<String, dynamic>));
     } catch (error) {
+      print("Error over here $error  +251$phonenumber");
       return left(const RemoteApiFailures.failedToVerify());
     }
   }

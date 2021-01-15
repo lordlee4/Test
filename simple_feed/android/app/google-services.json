@@ -96,18 +96,18 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:178163929654:android:54fce41dc4eb094be9be97",
+        "mobilesdk_app_id": "1:178163929654:android:c39bf4c09ab49964e9be97",
         "android_client_info": {
-          "package_name": "com.example.skill_test"
+          "package_name": "com.example.simple_feed"
         }
       },
       "oauth_client": [
         {
-          "client_id": "178163929654-j2ouis97lr2t056srac5ifv9glguah79.apps.googleusercontent.com",
+          "client_id": "178163929654-1r5vjikip65r45mjtp84rnog190hlc9j.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.skill_test",
-            "certificate_hash": "7f977e64aebc0ee794908451d6f014b3915b94cc"
+            "package_name": "com.example.simple_feed",
+            "certificate_hash": "5514b2622d3396468f240dd82c566dd516c93b47"
           }
         },
         {
@@ -140,18 +140,18 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:178163929654:android:b1e854f90bab1fa8e9be97",
+        "mobilesdk_app_id": "1:178163929654:android:54fce41dc4eb094be9be97",
         "android_client_info": {
-          "package_name": "com.gebeyanet.simpleFeed"
+          "package_name": "com.example.skill_test"
         }
       },
       "oauth_client": [
         {
-          "client_id": "178163929654-q7cc7soi2pekcusn3u3pf84ledfhju44.apps.googleusercontent.com",
+          "client_id": "178163929654-j2ouis97lr2t056srac5ifv9glguah79.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.gebeyanet.simpleFeed",
-            "certificate_hash": "89a1bc142807c16d4f006a5478b27c62749cb077"
+            "package_name": "com.example.skill_test",
+            "certificate_hash": "7f977e64aebc0ee794908451d6f014b3915b94cc"
           }
         },
         {

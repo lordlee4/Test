@@ -64,7 +64,7 @@ class _LoginFormState extends State<LoginForm> {
     }, builder: (context, state) {
       print(state);
       if (state is UninitializedState) {
-        return Center(
+        return const Center(
             child: CircularProgressIndicator(
           value: null,
           strokeWidth: 5.0,
@@ -75,7 +75,7 @@ class _LoginFormState extends State<LoginForm> {
           state is FailedToSendCodeState) {
         return _numberInput(context);
       } else {
-        return Center(
+        return const Center(
             child: CircularProgressIndicator(
           value: null,
           strokeWidth: 5.0,
@@ -157,7 +157,7 @@ class _LoginFormState extends State<LoginForm> {
                   padding: EdgeInsets.symmetric(
                       vertical: 20.0, horizontal: data.size.width * 0.35),
                   child: Container(
-                    child: Text(
+                    child: const Text(
                       "Sign In",
                       style: TextStyle(color: Colors.white),
                     ),
@@ -195,7 +195,7 @@ class _LoginFormState extends State<LoginForm> {
         elevation: 0,
         backgroundColor: Colors.white,
         title: IconButton(
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back_ios,
             color: Colors.black,
           ),
@@ -225,7 +225,7 @@ class _LoginFormState extends State<LoginForm> {
                       height: data.size.height * 0.02,
                     ),
                     RichText(
-                      text: new TextSpan(
+                      text: TextSpan(
                           style: Theme.of(context).textTheme.headline2,
                           children: <TextSpan>[
                             new TextSpan(

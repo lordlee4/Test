@@ -73,6 +73,16 @@ class _$CoreEventTearOff {
   RefreshFeed refreshFeed() {
     return const RefreshFeed();
   }
+
+// ignore: unused_element
+  NavToAddPostPage navToAddPostPage() {
+    return const NavToAddPostPage();
+  }
+
+// ignore: unused_element
+  NavToFeedPage navToFeedPage() {
+    return const NavToFeedPage();
+  }
 }
 
 /// @nodoc
@@ -93,6 +103,8 @@ mixin _$CoreEvent {
     @required TResult logout(),
     @required TResult unlikePost(String id),
     @required TResult refreshFeed(),
+    @required TResult navToAddPostPage(),
+    @required TResult navToFeedPage(),
   });
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
@@ -106,6 +118,8 @@ mixin _$CoreEvent {
     TResult logout(),
     TResult unlikePost(String id),
     TResult refreshFeed(),
+    TResult navToAddPostPage(),
+    TResult navToFeedPage(),
     @required TResult orElse(),
   });
   @optionalTypeArgs
@@ -120,6 +134,8 @@ mixin _$CoreEvent {
     @required TResult logout(Logout value),
     @required TResult unlikePost(UnlikePost value),
     @required TResult refreshFeed(RefreshFeed value),
+    @required TResult navToAddPostPage(NavToAddPostPage value),
+    @required TResult navToFeedPage(NavToFeedPage value),
   });
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
@@ -133,6 +149,8 @@ mixin _$CoreEvent {
     TResult logout(Logout value),
     TResult unlikePost(UnlikePost value),
     TResult refreshFeed(RefreshFeed value),
+    TResult navToAddPostPage(NavToAddPostPage value),
+    TResult navToFeedPage(NavToFeedPage value),
     @required TResult orElse(),
   });
 }
@@ -200,6 +218,8 @@ class _$InitialEvent implements InitialEvent {
     @required TResult logout(),
     @required TResult unlikePost(String id),
     @required TResult refreshFeed(),
+    @required TResult navToAddPostPage(),
+    @required TResult navToFeedPage(),
   }) {
     assert(initialEvent != null);
     assert(createPost != null);
@@ -211,6 +231,8 @@ class _$InitialEvent implements InitialEvent {
     assert(logout != null);
     assert(unlikePost != null);
     assert(refreshFeed != null);
+    assert(navToAddPostPage != null);
+    assert(navToFeedPage != null);
     return initialEvent();
   }
 
@@ -227,6 +249,8 @@ class _$InitialEvent implements InitialEvent {
     TResult logout(),
     TResult unlikePost(String id),
     TResult refreshFeed(),
+    TResult navToAddPostPage(),
+    TResult navToFeedPage(),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -249,6 +273,8 @@ class _$InitialEvent implements InitialEvent {
     @required TResult logout(Logout value),
     @required TResult unlikePost(UnlikePost value),
     @required TResult refreshFeed(RefreshFeed value),
+    @required TResult navToAddPostPage(NavToAddPostPage value),
+    @required TResult navToFeedPage(NavToFeedPage value),
   }) {
     assert(initialEvent != null);
     assert(createPost != null);
@@ -260,6 +286,8 @@ class _$InitialEvent implements InitialEvent {
     assert(logout != null);
     assert(unlikePost != null);
     assert(refreshFeed != null);
+    assert(navToAddPostPage != null);
+    assert(navToFeedPage != null);
     return initialEvent(this);
   }
 
@@ -276,6 +304,8 @@ class _$InitialEvent implements InitialEvent {
     TResult logout(Logout value),
     TResult unlikePost(UnlikePost value),
     TResult refreshFeed(RefreshFeed value),
+    TResult navToAddPostPage(NavToAddPostPage value),
+    TResult navToFeedPage(NavToFeedPage value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -367,6 +397,8 @@ class _$CreatePost implements CreatePost {
     @required TResult logout(),
     @required TResult unlikePost(String id),
     @required TResult refreshFeed(),
+    @required TResult navToAddPostPage(),
+    @required TResult navToFeedPage(),
   }) {
     assert(initialEvent != null);
     assert(createPost != null);
@@ -378,6 +410,8 @@ class _$CreatePost implements CreatePost {
     assert(logout != null);
     assert(unlikePost != null);
     assert(refreshFeed != null);
+    assert(navToAddPostPage != null);
+    assert(navToFeedPage != null);
     return createPost(caption, image);
   }
 
@@ -394,6 +428,8 @@ class _$CreatePost implements CreatePost {
     TResult logout(),
     TResult unlikePost(String id),
     TResult refreshFeed(),
+    TResult navToAddPostPage(),
+    TResult navToFeedPage(),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -416,6 +452,8 @@ class _$CreatePost implements CreatePost {
     @required TResult logout(Logout value),
     @required TResult unlikePost(UnlikePost value),
     @required TResult refreshFeed(RefreshFeed value),
+    @required TResult navToAddPostPage(NavToAddPostPage value),
+    @required TResult navToFeedPage(NavToFeedPage value),
   }) {
     assert(initialEvent != null);
     assert(createPost != null);
@@ -427,6 +465,8 @@ class _$CreatePost implements CreatePost {
     assert(logout != null);
     assert(unlikePost != null);
     assert(refreshFeed != null);
+    assert(navToAddPostPage != null);
+    assert(navToFeedPage != null);
     return createPost(this);
   }
 
@@ -443,6 +483,8 @@ class _$CreatePost implements CreatePost {
     TResult logout(Logout value),
     TResult unlikePost(UnlikePost value),
     TResult refreshFeed(RefreshFeed value),
+    TResult navToAddPostPage(NavToAddPostPage value),
+    TResult navToFeedPage(NavToFeedPage value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -509,6 +551,8 @@ class _$GetCurrentUser implements GetCurrentUser {
     @required TResult logout(),
     @required TResult unlikePost(String id),
     @required TResult refreshFeed(),
+    @required TResult navToAddPostPage(),
+    @required TResult navToFeedPage(),
   }) {
     assert(initialEvent != null);
     assert(createPost != null);
@@ -520,6 +564,8 @@ class _$GetCurrentUser implements GetCurrentUser {
     assert(logout != null);
     assert(unlikePost != null);
     assert(refreshFeed != null);
+    assert(navToAddPostPage != null);
+    assert(navToFeedPage != null);
     return getCurrentUser();
   }
 
@@ -536,6 +582,8 @@ class _$GetCurrentUser implements GetCurrentUser {
     TResult logout(),
     TResult unlikePost(String id),
     TResult refreshFeed(),
+    TResult navToAddPostPage(),
+    TResult navToFeedPage(),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -558,6 +606,8 @@ class _$GetCurrentUser implements GetCurrentUser {
     @required TResult logout(Logout value),
     @required TResult unlikePost(UnlikePost value),
     @required TResult refreshFeed(RefreshFeed value),
+    @required TResult navToAddPostPage(NavToAddPostPage value),
+    @required TResult navToFeedPage(NavToFeedPage value),
   }) {
     assert(initialEvent != null);
     assert(createPost != null);
@@ -569,6 +619,8 @@ class _$GetCurrentUser implements GetCurrentUser {
     assert(logout != null);
     assert(unlikePost != null);
     assert(refreshFeed != null);
+    assert(navToAddPostPage != null);
+    assert(navToFeedPage != null);
     return getCurrentUser(this);
   }
 
@@ -585,6 +637,8 @@ class _$GetCurrentUser implements GetCurrentUser {
     TResult logout(Logout value),
     TResult unlikePost(UnlikePost value),
     TResult refreshFeed(RefreshFeed value),
+    TResult navToAddPostPage(NavToAddPostPage value),
+    TResult navToFeedPage(NavToFeedPage value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -645,6 +699,8 @@ class _$GetFeed implements GetFeed {
     @required TResult logout(),
     @required TResult unlikePost(String id),
     @required TResult refreshFeed(),
+    @required TResult navToAddPostPage(),
+    @required TResult navToFeedPage(),
   }) {
     assert(initialEvent != null);
     assert(createPost != null);
@@ -656,6 +712,8 @@ class _$GetFeed implements GetFeed {
     assert(logout != null);
     assert(unlikePost != null);
     assert(refreshFeed != null);
+    assert(navToAddPostPage != null);
+    assert(navToFeedPage != null);
     return getFeed();
   }
 
@@ -672,6 +730,8 @@ class _$GetFeed implements GetFeed {
     TResult logout(),
     TResult unlikePost(String id),
     TResult refreshFeed(),
+    TResult navToAddPostPage(),
+    TResult navToFeedPage(),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -694,6 +754,8 @@ class _$GetFeed implements GetFeed {
     @required TResult logout(Logout value),
     @required TResult unlikePost(UnlikePost value),
     @required TResult refreshFeed(RefreshFeed value),
+    @required TResult navToAddPostPage(NavToAddPostPage value),
+    @required TResult navToFeedPage(NavToFeedPage value),
   }) {
     assert(initialEvent != null);
     assert(createPost != null);
@@ -705,6 +767,8 @@ class _$GetFeed implements GetFeed {
     assert(logout != null);
     assert(unlikePost != null);
     assert(refreshFeed != null);
+    assert(navToAddPostPage != null);
+    assert(navToFeedPage != null);
     return getFeed(this);
   }
 
@@ -721,6 +785,8 @@ class _$GetFeed implements GetFeed {
     TResult logout(Logout value),
     TResult unlikePost(UnlikePost value),
     TResult refreshFeed(RefreshFeed value),
+    TResult navToAddPostPage(NavToAddPostPage value),
+    TResult navToFeedPage(NavToFeedPage value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -804,6 +870,8 @@ class _$GetPostById implements GetPostById {
     @required TResult logout(),
     @required TResult unlikePost(String id),
     @required TResult refreshFeed(),
+    @required TResult navToAddPostPage(),
+    @required TResult navToFeedPage(),
   }) {
     assert(initialEvent != null);
     assert(createPost != null);
@@ -815,6 +883,8 @@ class _$GetPostById implements GetPostById {
     assert(logout != null);
     assert(unlikePost != null);
     assert(refreshFeed != null);
+    assert(navToAddPostPage != null);
+    assert(navToFeedPage != null);
     return getPostById(id);
   }
 
@@ -831,6 +901,8 @@ class _$GetPostById implements GetPostById {
     TResult logout(),
     TResult unlikePost(String id),
     TResult refreshFeed(),
+    TResult navToAddPostPage(),
+    TResult navToFeedPage(),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -853,6 +925,8 @@ class _$GetPostById implements GetPostById {
     @required TResult logout(Logout value),
     @required TResult unlikePost(UnlikePost value),
     @required TResult refreshFeed(RefreshFeed value),
+    @required TResult navToAddPostPage(NavToAddPostPage value),
+    @required TResult navToFeedPage(NavToFeedPage value),
   }) {
     assert(initialEvent != null);
     assert(createPost != null);
@@ -864,6 +938,8 @@ class _$GetPostById implements GetPostById {
     assert(logout != null);
     assert(unlikePost != null);
     assert(refreshFeed != null);
+    assert(navToAddPostPage != null);
+    assert(navToFeedPage != null);
     return getPostById(this);
   }
 
@@ -880,6 +956,8 @@ class _$GetPostById implements GetPostById {
     TResult logout(Logout value),
     TResult unlikePost(UnlikePost value),
     TResult refreshFeed(RefreshFeed value),
+    TResult navToAddPostPage(NavToAddPostPage value),
+    TResult navToFeedPage(NavToFeedPage value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -966,6 +1044,8 @@ class _$GetUserById implements GetUserById {
     @required TResult logout(),
     @required TResult unlikePost(String id),
     @required TResult refreshFeed(),
+    @required TResult navToAddPostPage(),
+    @required TResult navToFeedPage(),
   }) {
     assert(initialEvent != null);
     assert(createPost != null);
@@ -977,6 +1057,8 @@ class _$GetUserById implements GetUserById {
     assert(logout != null);
     assert(unlikePost != null);
     assert(refreshFeed != null);
+    assert(navToAddPostPage != null);
+    assert(navToFeedPage != null);
     return getUserById(id);
   }
 
@@ -993,6 +1075,8 @@ class _$GetUserById implements GetUserById {
     TResult logout(),
     TResult unlikePost(String id),
     TResult refreshFeed(),
+    TResult navToAddPostPage(),
+    TResult navToFeedPage(),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -1015,6 +1099,8 @@ class _$GetUserById implements GetUserById {
     @required TResult logout(Logout value),
     @required TResult unlikePost(UnlikePost value),
     @required TResult refreshFeed(RefreshFeed value),
+    @required TResult navToAddPostPage(NavToAddPostPage value),
+    @required TResult navToFeedPage(NavToFeedPage value),
   }) {
     assert(initialEvent != null);
     assert(createPost != null);
@@ -1026,6 +1112,8 @@ class _$GetUserById implements GetUserById {
     assert(logout != null);
     assert(unlikePost != null);
     assert(refreshFeed != null);
+    assert(navToAddPostPage != null);
+    assert(navToFeedPage != null);
     return getUserById(this);
   }
 
@@ -1042,6 +1130,8 @@ class _$GetUserById implements GetUserById {
     TResult logout(Logout value),
     TResult unlikePost(UnlikePost value),
     TResult refreshFeed(RefreshFeed value),
+    TResult navToAddPostPage(NavToAddPostPage value),
+    TResult navToFeedPage(NavToFeedPage value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -1126,6 +1216,8 @@ class _$LikePost implements LikePost {
     @required TResult logout(),
     @required TResult unlikePost(String id),
     @required TResult refreshFeed(),
+    @required TResult navToAddPostPage(),
+    @required TResult navToFeedPage(),
   }) {
     assert(initialEvent != null);
     assert(createPost != null);
@@ -1137,6 +1229,8 @@ class _$LikePost implements LikePost {
     assert(logout != null);
     assert(unlikePost != null);
     assert(refreshFeed != null);
+    assert(navToAddPostPage != null);
+    assert(navToFeedPage != null);
     return likePost(id);
   }
 
@@ -1153,6 +1247,8 @@ class _$LikePost implements LikePost {
     TResult logout(),
     TResult unlikePost(String id),
     TResult refreshFeed(),
+    TResult navToAddPostPage(),
+    TResult navToFeedPage(),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -1175,6 +1271,8 @@ class _$LikePost implements LikePost {
     @required TResult logout(Logout value),
     @required TResult unlikePost(UnlikePost value),
     @required TResult refreshFeed(RefreshFeed value),
+    @required TResult navToAddPostPage(NavToAddPostPage value),
+    @required TResult navToFeedPage(NavToFeedPage value),
   }) {
     assert(initialEvent != null);
     assert(createPost != null);
@@ -1186,6 +1284,8 @@ class _$LikePost implements LikePost {
     assert(logout != null);
     assert(unlikePost != null);
     assert(refreshFeed != null);
+    assert(navToAddPostPage != null);
+    assert(navToFeedPage != null);
     return likePost(this);
   }
 
@@ -1202,6 +1302,8 @@ class _$LikePost implements LikePost {
     TResult logout(Logout value),
     TResult unlikePost(UnlikePost value),
     TResult refreshFeed(RefreshFeed value),
+    TResult navToAddPostPage(NavToAddPostPage value),
+    TResult navToFeedPage(NavToFeedPage value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -1265,6 +1367,8 @@ class _$Logout implements Logout {
     @required TResult logout(),
     @required TResult unlikePost(String id),
     @required TResult refreshFeed(),
+    @required TResult navToAddPostPage(),
+    @required TResult navToFeedPage(),
   }) {
     assert(initialEvent != null);
     assert(createPost != null);
@@ -1276,6 +1380,8 @@ class _$Logout implements Logout {
     assert(logout != null);
     assert(unlikePost != null);
     assert(refreshFeed != null);
+    assert(navToAddPostPage != null);
+    assert(navToFeedPage != null);
     return logout();
   }
 
@@ -1292,6 +1398,8 @@ class _$Logout implements Logout {
     TResult logout(),
     TResult unlikePost(String id),
     TResult refreshFeed(),
+    TResult navToAddPostPage(),
+    TResult navToFeedPage(),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -1314,6 +1422,8 @@ class _$Logout implements Logout {
     @required TResult logout(Logout value),
     @required TResult unlikePost(UnlikePost value),
     @required TResult refreshFeed(RefreshFeed value),
+    @required TResult navToAddPostPage(NavToAddPostPage value),
+    @required TResult navToFeedPage(NavToFeedPage value),
   }) {
     assert(initialEvent != null);
     assert(createPost != null);
@@ -1325,6 +1435,8 @@ class _$Logout implements Logout {
     assert(logout != null);
     assert(unlikePost != null);
     assert(refreshFeed != null);
+    assert(navToAddPostPage != null);
+    assert(navToFeedPage != null);
     return logout(this);
   }
 
@@ -1341,6 +1453,8 @@ class _$Logout implements Logout {
     TResult logout(Logout value),
     TResult unlikePost(UnlikePost value),
     TResult refreshFeed(RefreshFeed value),
+    TResult navToAddPostPage(NavToAddPostPage value),
+    TResult navToFeedPage(NavToFeedPage value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -1423,6 +1537,8 @@ class _$UnlikePost implements UnlikePost {
     @required TResult logout(),
     @required TResult unlikePost(String id),
     @required TResult refreshFeed(),
+    @required TResult navToAddPostPage(),
+    @required TResult navToFeedPage(),
   }) {
     assert(initialEvent != null);
     assert(createPost != null);
@@ -1434,6 +1550,8 @@ class _$UnlikePost implements UnlikePost {
     assert(logout != null);
     assert(unlikePost != null);
     assert(refreshFeed != null);
+    assert(navToAddPostPage != null);
+    assert(navToFeedPage != null);
     return unlikePost(id);
   }
 
@@ -1450,6 +1568,8 @@ class _$UnlikePost implements UnlikePost {
     TResult logout(),
     TResult unlikePost(String id),
     TResult refreshFeed(),
+    TResult navToAddPostPage(),
+    TResult navToFeedPage(),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -1472,6 +1592,8 @@ class _$UnlikePost implements UnlikePost {
     @required TResult logout(Logout value),
     @required TResult unlikePost(UnlikePost value),
     @required TResult refreshFeed(RefreshFeed value),
+    @required TResult navToAddPostPage(NavToAddPostPage value),
+    @required TResult navToFeedPage(NavToFeedPage value),
   }) {
     assert(initialEvent != null);
     assert(createPost != null);
@@ -1483,6 +1605,8 @@ class _$UnlikePost implements UnlikePost {
     assert(logout != null);
     assert(unlikePost != null);
     assert(refreshFeed != null);
+    assert(navToAddPostPage != null);
+    assert(navToFeedPage != null);
     return unlikePost(this);
   }
 
@@ -1499,6 +1623,8 @@ class _$UnlikePost implements UnlikePost {
     TResult logout(Logout value),
     TResult unlikePost(UnlikePost value),
     TResult refreshFeed(RefreshFeed value),
+    TResult navToAddPostPage(NavToAddPostPage value),
+    TResult navToFeedPage(NavToFeedPage value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -1564,6 +1690,8 @@ class _$RefreshFeed implements RefreshFeed {
     @required TResult logout(),
     @required TResult unlikePost(String id),
     @required TResult refreshFeed(),
+    @required TResult navToAddPostPage(),
+    @required TResult navToFeedPage(),
   }) {
     assert(initialEvent != null);
     assert(createPost != null);
@@ -1575,6 +1703,8 @@ class _$RefreshFeed implements RefreshFeed {
     assert(logout != null);
     assert(unlikePost != null);
     assert(refreshFeed != null);
+    assert(navToAddPostPage != null);
+    assert(navToFeedPage != null);
     return refreshFeed();
   }
 
@@ -1591,6 +1721,8 @@ class _$RefreshFeed implements RefreshFeed {
     TResult logout(),
     TResult unlikePost(String id),
     TResult refreshFeed(),
+    TResult navToAddPostPage(),
+    TResult navToFeedPage(),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -1613,6 +1745,8 @@ class _$RefreshFeed implements RefreshFeed {
     @required TResult logout(Logout value),
     @required TResult unlikePost(UnlikePost value),
     @required TResult refreshFeed(RefreshFeed value),
+    @required TResult navToAddPostPage(NavToAddPostPage value),
+    @required TResult navToFeedPage(NavToFeedPage value),
   }) {
     assert(initialEvent != null);
     assert(createPost != null);
@@ -1624,6 +1758,8 @@ class _$RefreshFeed implements RefreshFeed {
     assert(logout != null);
     assert(unlikePost != null);
     assert(refreshFeed != null);
+    assert(navToAddPostPage != null);
+    assert(navToFeedPage != null);
     return refreshFeed(this);
   }
 
@@ -1640,6 +1776,8 @@ class _$RefreshFeed implements RefreshFeed {
     TResult logout(Logout value),
     TResult unlikePost(UnlikePost value),
     TResult refreshFeed(RefreshFeed value),
+    TResult navToAddPostPage(NavToAddPostPage value),
+    TResult navToFeedPage(NavToFeedPage value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -1652,6 +1790,306 @@ class _$RefreshFeed implements RefreshFeed {
 
 abstract class RefreshFeed implements CoreEvent {
   const factory RefreshFeed() = _$RefreshFeed;
+}
+
+/// @nodoc
+abstract class $NavToAddPostPageCopyWith<$Res> {
+  factory $NavToAddPostPageCopyWith(
+          NavToAddPostPage value, $Res Function(NavToAddPostPage) then) =
+      _$NavToAddPostPageCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class _$NavToAddPostPageCopyWithImpl<$Res> extends _$CoreEventCopyWithImpl<$Res>
+    implements $NavToAddPostPageCopyWith<$Res> {
+  _$NavToAddPostPageCopyWithImpl(
+      NavToAddPostPage _value, $Res Function(NavToAddPostPage) _then)
+      : super(_value, (v) => _then(v as NavToAddPostPage));
+
+  @override
+  NavToAddPostPage get _value => super._value as NavToAddPostPage;
+}
+
+/// @nodoc
+class _$NavToAddPostPage implements NavToAddPostPage {
+  const _$NavToAddPostPage();
+
+  @override
+  String toString() {
+    return 'CoreEvent.navToAddPostPage()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is NavToAddPostPage);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object>({
+    @required TResult initialEvent(),
+    @required TResult createPost(String caption, File image),
+    @required TResult getCurrentUser(),
+    @required TResult getFeed(),
+    @required TResult getPostById(String id),
+    @required TResult getUserById(String id),
+    @required TResult likePost(String id),
+    @required TResult logout(),
+    @required TResult unlikePost(String id),
+    @required TResult refreshFeed(),
+    @required TResult navToAddPostPage(),
+    @required TResult navToFeedPage(),
+  }) {
+    assert(initialEvent != null);
+    assert(createPost != null);
+    assert(getCurrentUser != null);
+    assert(getFeed != null);
+    assert(getPostById != null);
+    assert(getUserById != null);
+    assert(likePost != null);
+    assert(logout != null);
+    assert(unlikePost != null);
+    assert(refreshFeed != null);
+    assert(navToAddPostPage != null);
+    assert(navToFeedPage != null);
+    return navToAddPostPage();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object>({
+    TResult initialEvent(),
+    TResult createPost(String caption, File image),
+    TResult getCurrentUser(),
+    TResult getFeed(),
+    TResult getPostById(String id),
+    TResult getUserById(String id),
+    TResult likePost(String id),
+    TResult logout(),
+    TResult unlikePost(String id),
+    TResult refreshFeed(),
+    TResult navToAddPostPage(),
+    TResult navToFeedPage(),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (navToAddPostPage != null) {
+      return navToAddPostPage();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object>({
+    @required TResult initialEvent(InitialEvent value),
+    @required TResult createPost(CreatePost value),
+    @required TResult getCurrentUser(GetCurrentUser value),
+    @required TResult getFeed(GetFeed value),
+    @required TResult getPostById(GetPostById value),
+    @required TResult getUserById(GetUserById value),
+    @required TResult likePost(LikePost value),
+    @required TResult logout(Logout value),
+    @required TResult unlikePost(UnlikePost value),
+    @required TResult refreshFeed(RefreshFeed value),
+    @required TResult navToAddPostPage(NavToAddPostPage value),
+    @required TResult navToFeedPage(NavToFeedPage value),
+  }) {
+    assert(initialEvent != null);
+    assert(createPost != null);
+    assert(getCurrentUser != null);
+    assert(getFeed != null);
+    assert(getPostById != null);
+    assert(getUserById != null);
+    assert(likePost != null);
+    assert(logout != null);
+    assert(unlikePost != null);
+    assert(refreshFeed != null);
+    assert(navToAddPostPage != null);
+    assert(navToFeedPage != null);
+    return navToAddPostPage(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object>({
+    TResult initialEvent(InitialEvent value),
+    TResult createPost(CreatePost value),
+    TResult getCurrentUser(GetCurrentUser value),
+    TResult getFeed(GetFeed value),
+    TResult getPostById(GetPostById value),
+    TResult getUserById(GetUserById value),
+    TResult likePost(LikePost value),
+    TResult logout(Logout value),
+    TResult unlikePost(UnlikePost value),
+    TResult refreshFeed(RefreshFeed value),
+    TResult navToAddPostPage(NavToAddPostPage value),
+    TResult navToFeedPage(NavToFeedPage value),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (navToAddPostPage != null) {
+      return navToAddPostPage(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class NavToAddPostPage implements CoreEvent {
+  const factory NavToAddPostPage() = _$NavToAddPostPage;
+}
+
+/// @nodoc
+abstract class $NavToFeedPageCopyWith<$Res> {
+  factory $NavToFeedPageCopyWith(
+          NavToFeedPage value, $Res Function(NavToFeedPage) then) =
+      _$NavToFeedPageCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class _$NavToFeedPageCopyWithImpl<$Res> extends _$CoreEventCopyWithImpl<$Res>
+    implements $NavToFeedPageCopyWith<$Res> {
+  _$NavToFeedPageCopyWithImpl(
+      NavToFeedPage _value, $Res Function(NavToFeedPage) _then)
+      : super(_value, (v) => _then(v as NavToFeedPage));
+
+  @override
+  NavToFeedPage get _value => super._value as NavToFeedPage;
+}
+
+/// @nodoc
+class _$NavToFeedPage implements NavToFeedPage {
+  const _$NavToFeedPage();
+
+  @override
+  String toString() {
+    return 'CoreEvent.navToFeedPage()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is NavToFeedPage);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object>({
+    @required TResult initialEvent(),
+    @required TResult createPost(String caption, File image),
+    @required TResult getCurrentUser(),
+    @required TResult getFeed(),
+    @required TResult getPostById(String id),
+    @required TResult getUserById(String id),
+    @required TResult likePost(String id),
+    @required TResult logout(),
+    @required TResult unlikePost(String id),
+    @required TResult refreshFeed(),
+    @required TResult navToAddPostPage(),
+    @required TResult navToFeedPage(),
+  }) {
+    assert(initialEvent != null);
+    assert(createPost != null);
+    assert(getCurrentUser != null);
+    assert(getFeed != null);
+    assert(getPostById != null);
+    assert(getUserById != null);
+    assert(likePost != null);
+    assert(logout != null);
+    assert(unlikePost != null);
+    assert(refreshFeed != null);
+    assert(navToAddPostPage != null);
+    assert(navToFeedPage != null);
+    return navToFeedPage();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object>({
+    TResult initialEvent(),
+    TResult createPost(String caption, File image),
+    TResult getCurrentUser(),
+    TResult getFeed(),
+    TResult getPostById(String id),
+    TResult getUserById(String id),
+    TResult likePost(String id),
+    TResult logout(),
+    TResult unlikePost(String id),
+    TResult refreshFeed(),
+    TResult navToAddPostPage(),
+    TResult navToFeedPage(),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (navToFeedPage != null) {
+      return navToFeedPage();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object>({
+    @required TResult initialEvent(InitialEvent value),
+    @required TResult createPost(CreatePost value),
+    @required TResult getCurrentUser(GetCurrentUser value),
+    @required TResult getFeed(GetFeed value),
+    @required TResult getPostById(GetPostById value),
+    @required TResult getUserById(GetUserById value),
+    @required TResult likePost(LikePost value),
+    @required TResult logout(Logout value),
+    @required TResult unlikePost(UnlikePost value),
+    @required TResult refreshFeed(RefreshFeed value),
+    @required TResult navToAddPostPage(NavToAddPostPage value),
+    @required TResult navToFeedPage(NavToFeedPage value),
+  }) {
+    assert(initialEvent != null);
+    assert(createPost != null);
+    assert(getCurrentUser != null);
+    assert(getFeed != null);
+    assert(getPostById != null);
+    assert(getUserById != null);
+    assert(likePost != null);
+    assert(logout != null);
+    assert(unlikePost != null);
+    assert(refreshFeed != null);
+    assert(navToAddPostPage != null);
+    assert(navToFeedPage != null);
+    return navToFeedPage(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object>({
+    TResult initialEvent(InitialEvent value),
+    TResult createPost(CreatePost value),
+    TResult getCurrentUser(GetCurrentUser value),
+    TResult getFeed(GetFeed value),
+    TResult getPostById(GetPostById value),
+    TResult getUserById(GetUserById value),
+    TResult likePost(LikePost value),
+    TResult logout(Logout value),
+    TResult unlikePost(UnlikePost value),
+    TResult refreshFeed(RefreshFeed value),
+    TResult navToAddPostPage(NavToAddPostPage value),
+    TResult navToFeedPage(NavToFeedPage value),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (navToFeedPage != null) {
+      return navToFeedPage(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class NavToFeedPage implements CoreEvent {
+  const factory NavToFeedPage() = _$NavToFeedPage;
 }
 
 /// @nodoc
@@ -1725,6 +2163,16 @@ class _$CoreStateTearOff {
       unLikeFailureOrSuccess: unLikeFailureOrSuccess,
     );
   }
+
+// ignore: unused_element
+  ToPostPage toPostPage() {
+    return const ToPostPage();
+  }
+
+// ignore: unused_element
+  ToFeedPage toFeedPage() {
+    return const ToFeedPage();
+  }
 }
 
 /// @nodoc
@@ -1759,6 +2207,8 @@ mixin _$CoreState {
     @required
         TResult unLikedPost(
             Either<RemoteApiFailures, String> unLikeFailureOrSuccess),
+    @required TResult toPostPage(),
+    @required TResult toFeedPage(),
   });
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
@@ -1775,6 +2225,8 @@ mixin _$CoreState {
         Either<RemoteApiFailures, Unit> loggedOutFailureOrSuccess),
     TResult unLikedPost(
         Either<RemoteApiFailures, String> unLikeFailureOrSuccess),
+    TResult toPostPage(),
+    TResult toFeedPage(),
     @required TResult orElse(),
   });
   @optionalTypeArgs
@@ -1788,6 +2240,8 @@ mixin _$CoreState {
     @required TResult likedPost(LikedPost value),
     @required TResult loggedOut(LoggedOut value),
     @required TResult unLikedPost(UnlikedPost value),
+    @required TResult toPostPage(ToPostPage value),
+    @required TResult toFeedPage(ToFeedPage value),
   });
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
@@ -1800,6 +2254,8 @@ mixin _$CoreState {
     TResult likedPost(LikedPost value),
     TResult loggedOut(LoggedOut value),
     TResult unLikedPost(UnlikedPost value),
+    TResult toPostPage(ToPostPage value),
+    TResult toFeedPage(ToFeedPage value),
     @required TResult orElse(),
   });
 }
@@ -1881,6 +2337,8 @@ class _$InitialState implements InitialState {
     @required
         TResult unLikedPost(
             Either<RemoteApiFailures, String> unLikeFailureOrSuccess),
+    @required TResult toPostPage(),
+    @required TResult toFeedPage(),
   }) {
     assert(initialState != null);
     assert(createdPost != null);
@@ -1891,6 +2349,8 @@ class _$InitialState implements InitialState {
     assert(likedPost != null);
     assert(loggedOut != null);
     assert(unLikedPost != null);
+    assert(toPostPage != null);
+    assert(toFeedPage != null);
     return initialState();
   }
 
@@ -1910,6 +2370,8 @@ class _$InitialState implements InitialState {
         Either<RemoteApiFailures, Unit> loggedOutFailureOrSuccess),
     TResult unLikedPost(
         Either<RemoteApiFailures, String> unLikeFailureOrSuccess),
+    TResult toPostPage(),
+    TResult toFeedPage(),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -1931,6 +2393,8 @@ class _$InitialState implements InitialState {
     @required TResult likedPost(LikedPost value),
     @required TResult loggedOut(LoggedOut value),
     @required TResult unLikedPost(UnlikedPost value),
+    @required TResult toPostPage(ToPostPage value),
+    @required TResult toFeedPage(ToFeedPage value),
   }) {
     assert(initialState != null);
     assert(createdPost != null);
@@ -1941,6 +2405,8 @@ class _$InitialState implements InitialState {
     assert(likedPost != null);
     assert(loggedOut != null);
     assert(unLikedPost != null);
+    assert(toPostPage != null);
+    assert(toFeedPage != null);
     return initialState(this);
   }
 
@@ -1956,6 +2422,8 @@ class _$InitialState implements InitialState {
     TResult likedPost(LikedPost value),
     TResult loggedOut(LoggedOut value),
     TResult unLikedPost(UnlikedPost value),
+    TResult toPostPage(ToPostPage value),
+    TResult toFeedPage(ToFeedPage value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -2059,6 +2527,8 @@ class _$CreatedPost implements CreatedPost {
     @required
         TResult unLikedPost(
             Either<RemoteApiFailures, String> unLikeFailureOrSuccess),
+    @required TResult toPostPage(),
+    @required TResult toFeedPage(),
   }) {
     assert(initialState != null);
     assert(createdPost != null);
@@ -2069,6 +2539,8 @@ class _$CreatedPost implements CreatedPost {
     assert(likedPost != null);
     assert(loggedOut != null);
     assert(unLikedPost != null);
+    assert(toPostPage != null);
+    assert(toFeedPage != null);
     return createdPost(createdPostFailureOrSuccess);
   }
 
@@ -2088,6 +2560,8 @@ class _$CreatedPost implements CreatedPost {
         Either<RemoteApiFailures, Unit> loggedOutFailureOrSuccess),
     TResult unLikedPost(
         Either<RemoteApiFailures, String> unLikeFailureOrSuccess),
+    TResult toPostPage(),
+    TResult toFeedPage(),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -2109,6 +2583,8 @@ class _$CreatedPost implements CreatedPost {
     @required TResult likedPost(LikedPost value),
     @required TResult loggedOut(LoggedOut value),
     @required TResult unLikedPost(UnlikedPost value),
+    @required TResult toPostPage(ToPostPage value),
+    @required TResult toFeedPage(ToFeedPage value),
   }) {
     assert(initialState != null);
     assert(createdPost != null);
@@ -2119,6 +2595,8 @@ class _$CreatedPost implements CreatedPost {
     assert(likedPost != null);
     assert(loggedOut != null);
     assert(unLikedPost != null);
+    assert(toPostPage != null);
+    assert(toFeedPage != null);
     return createdPost(this);
   }
 
@@ -2134,6 +2612,8 @@ class _$CreatedPost implements CreatedPost {
     TResult likedPost(LikedPost value),
     TResult loggedOut(LoggedOut value),
     TResult unLikedPost(UnlikedPost value),
+    TResult toPostPage(ToPostPage value),
+    TResult toFeedPage(ToFeedPage value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -2240,6 +2720,8 @@ class _$CurrentUser implements CurrentUser {
     @required
         TResult unLikedPost(
             Either<RemoteApiFailures, String> unLikeFailureOrSuccess),
+    @required TResult toPostPage(),
+    @required TResult toFeedPage(),
   }) {
     assert(initialState != null);
     assert(createdPost != null);
@@ -2250,6 +2732,8 @@ class _$CurrentUser implements CurrentUser {
     assert(likedPost != null);
     assert(loggedOut != null);
     assert(unLikedPost != null);
+    assert(toPostPage != null);
+    assert(toFeedPage != null);
     return currentUser(userFailureOrSuccess);
   }
 
@@ -2269,6 +2753,8 @@ class _$CurrentUser implements CurrentUser {
         Either<RemoteApiFailures, Unit> loggedOutFailureOrSuccess),
     TResult unLikedPost(
         Either<RemoteApiFailures, String> unLikeFailureOrSuccess),
+    TResult toPostPage(),
+    TResult toFeedPage(),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -2290,6 +2776,8 @@ class _$CurrentUser implements CurrentUser {
     @required TResult likedPost(LikedPost value),
     @required TResult loggedOut(LoggedOut value),
     @required TResult unLikedPost(UnlikedPost value),
+    @required TResult toPostPage(ToPostPage value),
+    @required TResult toFeedPage(ToFeedPage value),
   }) {
     assert(initialState != null);
     assert(createdPost != null);
@@ -2300,6 +2788,8 @@ class _$CurrentUser implements CurrentUser {
     assert(likedPost != null);
     assert(loggedOut != null);
     assert(unLikedPost != null);
+    assert(toPostPage != null);
+    assert(toFeedPage != null);
     return currentUser(this);
   }
 
@@ -2315,6 +2805,8 @@ class _$CurrentUser implements CurrentUser {
     TResult likedPost(LikedPost value),
     TResult loggedOut(LoggedOut value),
     TResult unLikedPost(UnlikedPost value),
+    TResult toPostPage(ToPostPage value),
+    TResult toFeedPage(ToFeedPage value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -2419,6 +2911,8 @@ class _$Feed implements Feed {
     @required
         TResult unLikedPost(
             Either<RemoteApiFailures, String> unLikeFailureOrSuccess),
+    @required TResult toPostPage(),
+    @required TResult toFeedPage(),
   }) {
     assert(initialState != null);
     assert(createdPost != null);
@@ -2429,6 +2923,8 @@ class _$Feed implements Feed {
     assert(likedPost != null);
     assert(loggedOut != null);
     assert(unLikedPost != null);
+    assert(toPostPage != null);
+    assert(toFeedPage != null);
     return feed(feedFailureOrSuccess);
   }
 
@@ -2448,6 +2944,8 @@ class _$Feed implements Feed {
         Either<RemoteApiFailures, Unit> loggedOutFailureOrSuccess),
     TResult unLikedPost(
         Either<RemoteApiFailures, String> unLikeFailureOrSuccess),
+    TResult toPostPage(),
+    TResult toFeedPage(),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -2469,6 +2967,8 @@ class _$Feed implements Feed {
     @required TResult likedPost(LikedPost value),
     @required TResult loggedOut(LoggedOut value),
     @required TResult unLikedPost(UnlikedPost value),
+    @required TResult toPostPage(ToPostPage value),
+    @required TResult toFeedPage(ToFeedPage value),
   }) {
     assert(initialState != null);
     assert(createdPost != null);
@@ -2479,6 +2979,8 @@ class _$Feed implements Feed {
     assert(likedPost != null);
     assert(loggedOut != null);
     assert(unLikedPost != null);
+    assert(toPostPage != null);
+    assert(toFeedPage != null);
     return feed(this);
   }
 
@@ -2494,6 +2996,8 @@ class _$Feed implements Feed {
     TResult likedPost(LikedPost value),
     TResult loggedOut(LoggedOut value),
     TResult unLikedPost(UnlikedPost value),
+    TResult toPostPage(ToPostPage value),
+    TResult toFeedPage(ToFeedPage value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -2597,6 +3101,8 @@ class _$PostById implements PostById {
     @required
         TResult unLikedPost(
             Either<RemoteApiFailures, String> unLikeFailureOrSuccess),
+    @required TResult toPostPage(),
+    @required TResult toFeedPage(),
   }) {
     assert(initialState != null);
     assert(createdPost != null);
@@ -2607,6 +3113,8 @@ class _$PostById implements PostById {
     assert(likedPost != null);
     assert(loggedOut != null);
     assert(unLikedPost != null);
+    assert(toPostPage != null);
+    assert(toFeedPage != null);
     return postById(postFailureOrSuccess);
   }
 
@@ -2626,6 +3134,8 @@ class _$PostById implements PostById {
         Either<RemoteApiFailures, Unit> loggedOutFailureOrSuccess),
     TResult unLikedPost(
         Either<RemoteApiFailures, String> unLikeFailureOrSuccess),
+    TResult toPostPage(),
+    TResult toFeedPage(),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -2647,6 +3157,8 @@ class _$PostById implements PostById {
     @required TResult likedPost(LikedPost value),
     @required TResult loggedOut(LoggedOut value),
     @required TResult unLikedPost(UnlikedPost value),
+    @required TResult toPostPage(ToPostPage value),
+    @required TResult toFeedPage(ToFeedPage value),
   }) {
     assert(initialState != null);
     assert(createdPost != null);
@@ -2657,6 +3169,8 @@ class _$PostById implements PostById {
     assert(likedPost != null);
     assert(loggedOut != null);
     assert(unLikedPost != null);
+    assert(toPostPage != null);
+    assert(toFeedPage != null);
     return postById(this);
   }
 
@@ -2672,6 +3186,8 @@ class _$PostById implements PostById {
     TResult likedPost(LikedPost value),
     TResult loggedOut(LoggedOut value),
     TResult unLikedPost(UnlikedPost value),
+    TResult toPostPage(ToPostPage value),
+    TResult toFeedPage(ToFeedPage value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -2775,6 +3291,8 @@ class _$UserById implements UserById {
     @required
         TResult unLikedPost(
             Either<RemoteApiFailures, String> unLikeFailureOrSuccess),
+    @required TResult toPostPage(),
+    @required TResult toFeedPage(),
   }) {
     assert(initialState != null);
     assert(createdPost != null);
@@ -2785,6 +3303,8 @@ class _$UserById implements UserById {
     assert(likedPost != null);
     assert(loggedOut != null);
     assert(unLikedPost != null);
+    assert(toPostPage != null);
+    assert(toFeedPage != null);
     return userById(userFailureOrSuccess);
   }
 
@@ -2804,6 +3324,8 @@ class _$UserById implements UserById {
         Either<RemoteApiFailures, Unit> loggedOutFailureOrSuccess),
     TResult unLikedPost(
         Either<RemoteApiFailures, String> unLikeFailureOrSuccess),
+    TResult toPostPage(),
+    TResult toFeedPage(),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -2825,6 +3347,8 @@ class _$UserById implements UserById {
     @required TResult likedPost(LikedPost value),
     @required TResult loggedOut(LoggedOut value),
     @required TResult unLikedPost(UnlikedPost value),
+    @required TResult toPostPage(ToPostPage value),
+    @required TResult toFeedPage(ToFeedPage value),
   }) {
     assert(initialState != null);
     assert(createdPost != null);
@@ -2835,6 +3359,8 @@ class _$UserById implements UserById {
     assert(likedPost != null);
     assert(loggedOut != null);
     assert(unLikedPost != null);
+    assert(toPostPage != null);
+    assert(toFeedPage != null);
     return userById(this);
   }
 
@@ -2850,6 +3376,8 @@ class _$UserById implements UserById {
     TResult likedPost(LikedPost value),
     TResult loggedOut(LoggedOut value),
     TResult unLikedPost(UnlikedPost value),
+    TResult toPostPage(ToPostPage value),
+    TResult toFeedPage(ToFeedPage value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -2953,6 +3481,8 @@ class _$LikedPost implements LikedPost {
     @required
         TResult unLikedPost(
             Either<RemoteApiFailures, String> unLikeFailureOrSuccess),
+    @required TResult toPostPage(),
+    @required TResult toFeedPage(),
   }) {
     assert(initialState != null);
     assert(createdPost != null);
@@ -2963,6 +3493,8 @@ class _$LikedPost implements LikedPost {
     assert(likedPost != null);
     assert(loggedOut != null);
     assert(unLikedPost != null);
+    assert(toPostPage != null);
+    assert(toFeedPage != null);
     return likedPost(likeFailureOrSuccess);
   }
 
@@ -2982,6 +3514,8 @@ class _$LikedPost implements LikedPost {
         Either<RemoteApiFailures, Unit> loggedOutFailureOrSuccess),
     TResult unLikedPost(
         Either<RemoteApiFailures, String> unLikeFailureOrSuccess),
+    TResult toPostPage(),
+    TResult toFeedPage(),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -3003,6 +3537,8 @@ class _$LikedPost implements LikedPost {
     @required TResult likedPost(LikedPost value),
     @required TResult loggedOut(LoggedOut value),
     @required TResult unLikedPost(UnlikedPost value),
+    @required TResult toPostPage(ToPostPage value),
+    @required TResult toFeedPage(ToFeedPage value),
   }) {
     assert(initialState != null);
     assert(createdPost != null);
@@ -3013,6 +3549,8 @@ class _$LikedPost implements LikedPost {
     assert(likedPost != null);
     assert(loggedOut != null);
     assert(unLikedPost != null);
+    assert(toPostPage != null);
+    assert(toFeedPage != null);
     return likedPost(this);
   }
 
@@ -3028,6 +3566,8 @@ class _$LikedPost implements LikedPost {
     TResult likedPost(LikedPost value),
     TResult loggedOut(LoggedOut value),
     TResult unLikedPost(UnlikedPost value),
+    TResult toPostPage(ToPostPage value),
+    TResult toFeedPage(ToFeedPage value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -3133,6 +3673,8 @@ class _$LoggedOut implements LoggedOut {
     @required
         TResult unLikedPost(
             Either<RemoteApiFailures, String> unLikeFailureOrSuccess),
+    @required TResult toPostPage(),
+    @required TResult toFeedPage(),
   }) {
     assert(initialState != null);
     assert(createdPost != null);
@@ -3143,6 +3685,8 @@ class _$LoggedOut implements LoggedOut {
     assert(likedPost != null);
     assert(loggedOut != null);
     assert(unLikedPost != null);
+    assert(toPostPage != null);
+    assert(toFeedPage != null);
     return loggedOut(loggedOutFailureOrSuccess);
   }
 
@@ -3162,6 +3706,8 @@ class _$LoggedOut implements LoggedOut {
         Either<RemoteApiFailures, Unit> loggedOutFailureOrSuccess),
     TResult unLikedPost(
         Either<RemoteApiFailures, String> unLikeFailureOrSuccess),
+    TResult toPostPage(),
+    TResult toFeedPage(),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -3183,6 +3729,8 @@ class _$LoggedOut implements LoggedOut {
     @required TResult likedPost(LikedPost value),
     @required TResult loggedOut(LoggedOut value),
     @required TResult unLikedPost(UnlikedPost value),
+    @required TResult toPostPage(ToPostPage value),
+    @required TResult toFeedPage(ToFeedPage value),
   }) {
     assert(initialState != null);
     assert(createdPost != null);
@@ -3193,6 +3741,8 @@ class _$LoggedOut implements LoggedOut {
     assert(likedPost != null);
     assert(loggedOut != null);
     assert(unLikedPost != null);
+    assert(toPostPage != null);
+    assert(toFeedPage != null);
     return loggedOut(this);
   }
 
@@ -3208,6 +3758,8 @@ class _$LoggedOut implements LoggedOut {
     TResult likedPost(LikedPost value),
     TResult loggedOut(LoggedOut value),
     TResult unLikedPost(UnlikedPost value),
+    TResult toPostPage(ToPostPage value),
+    TResult toFeedPage(ToFeedPage value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -3314,6 +3866,8 @@ class _$UnlikedPost implements UnlikedPost {
     @required
         TResult unLikedPost(
             Either<RemoteApiFailures, String> unLikeFailureOrSuccess),
+    @required TResult toPostPage(),
+    @required TResult toFeedPage(),
   }) {
     assert(initialState != null);
     assert(createdPost != null);
@@ -3324,6 +3878,8 @@ class _$UnlikedPost implements UnlikedPost {
     assert(likedPost != null);
     assert(loggedOut != null);
     assert(unLikedPost != null);
+    assert(toPostPage != null);
+    assert(toFeedPage != null);
     return unLikedPost(unLikeFailureOrSuccess);
   }
 
@@ -3343,6 +3899,8 @@ class _$UnlikedPost implements UnlikedPost {
         Either<RemoteApiFailures, Unit> loggedOutFailureOrSuccess),
     TResult unLikedPost(
         Either<RemoteApiFailures, String> unLikeFailureOrSuccess),
+    TResult toPostPage(),
+    TResult toFeedPage(),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -3364,6 +3922,8 @@ class _$UnlikedPost implements UnlikedPost {
     @required TResult likedPost(LikedPost value),
     @required TResult loggedOut(LoggedOut value),
     @required TResult unLikedPost(UnlikedPost value),
+    @required TResult toPostPage(ToPostPage value),
+    @required TResult toFeedPage(ToFeedPage value),
   }) {
     assert(initialState != null);
     assert(createdPost != null);
@@ -3374,6 +3934,8 @@ class _$UnlikedPost implements UnlikedPost {
     assert(likedPost != null);
     assert(loggedOut != null);
     assert(unLikedPost != null);
+    assert(toPostPage != null);
+    assert(toFeedPage != null);
     return unLikedPost(this);
   }
 
@@ -3389,6 +3951,8 @@ class _$UnlikedPost implements UnlikedPost {
     TResult likedPost(LikedPost value),
     TResult loggedOut(LoggedOut value),
     TResult unLikedPost(UnlikedPost value),
+    TResult toPostPage(ToPostPage value),
+    TResult toFeedPage(ToFeedPage value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -3406,4 +3970,328 @@ abstract class UnlikedPost implements CoreState {
 
   Either<RemoteApiFailures, String> get unLikeFailureOrSuccess;
   $UnlikedPostCopyWith<UnlikedPost> get copyWith;
+}
+
+/// @nodoc
+abstract class $ToPostPageCopyWith<$Res> {
+  factory $ToPostPageCopyWith(
+          ToPostPage value, $Res Function(ToPostPage) then) =
+      _$ToPostPageCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class _$ToPostPageCopyWithImpl<$Res> extends _$CoreStateCopyWithImpl<$Res>
+    implements $ToPostPageCopyWith<$Res> {
+  _$ToPostPageCopyWithImpl(ToPostPage _value, $Res Function(ToPostPage) _then)
+      : super(_value, (v) => _then(v as ToPostPage));
+
+  @override
+  ToPostPage get _value => super._value as ToPostPage;
+}
+
+/// @nodoc
+class _$ToPostPage implements ToPostPage {
+  const _$ToPostPage();
+
+  @override
+  String toString() {
+    return 'CoreState.toPostPage()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is ToPostPage);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object>({
+    @required TResult initialState(),
+    @required
+        TResult createdPost(
+            Either<RemoteApiFailures, PostModel> createdPostFailureOrSuccess),
+    @required
+        TResult currentUser(
+            Either<RemoteApiFailures, UserModel> userFailureOrSuccess),
+    @required
+        TResult feed(Either<RemoteApiFailures, FeedModel> feedFailureOrSuccess),
+    @required
+        TResult postById(
+            Either<RemoteApiFailures, PostModel> postFailureOrSuccess),
+    @required
+        TResult userById(
+            Either<RemoteApiFailures, UserModel> userFailureOrSuccess),
+    @required
+        TResult likedPost(
+            Either<RemoteApiFailures, String> likeFailureOrSuccess),
+    @required
+        TResult loggedOut(
+            Either<RemoteApiFailures, Unit> loggedOutFailureOrSuccess),
+    @required
+        TResult unLikedPost(
+            Either<RemoteApiFailures, String> unLikeFailureOrSuccess),
+    @required TResult toPostPage(),
+    @required TResult toFeedPage(),
+  }) {
+    assert(initialState != null);
+    assert(createdPost != null);
+    assert(currentUser != null);
+    assert(feed != null);
+    assert(postById != null);
+    assert(userById != null);
+    assert(likedPost != null);
+    assert(loggedOut != null);
+    assert(unLikedPost != null);
+    assert(toPostPage != null);
+    assert(toFeedPage != null);
+    return toPostPage();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object>({
+    TResult initialState(),
+    TResult createdPost(
+        Either<RemoteApiFailures, PostModel> createdPostFailureOrSuccess),
+    TResult currentUser(
+        Either<RemoteApiFailures, UserModel> userFailureOrSuccess),
+    TResult feed(Either<RemoteApiFailures, FeedModel> feedFailureOrSuccess),
+    TResult postById(Either<RemoteApiFailures, PostModel> postFailureOrSuccess),
+    TResult userById(Either<RemoteApiFailures, UserModel> userFailureOrSuccess),
+    TResult likedPost(Either<RemoteApiFailures, String> likeFailureOrSuccess),
+    TResult loggedOut(
+        Either<RemoteApiFailures, Unit> loggedOutFailureOrSuccess),
+    TResult unLikedPost(
+        Either<RemoteApiFailures, String> unLikeFailureOrSuccess),
+    TResult toPostPage(),
+    TResult toFeedPage(),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (toPostPage != null) {
+      return toPostPage();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object>({
+    @required TResult initialState(InitialState value),
+    @required TResult createdPost(CreatedPost value),
+    @required TResult currentUser(CurrentUser value),
+    @required TResult feed(Feed value),
+    @required TResult postById(PostById value),
+    @required TResult userById(UserById value),
+    @required TResult likedPost(LikedPost value),
+    @required TResult loggedOut(LoggedOut value),
+    @required TResult unLikedPost(UnlikedPost value),
+    @required TResult toPostPage(ToPostPage value),
+    @required TResult toFeedPage(ToFeedPage value),
+  }) {
+    assert(initialState != null);
+    assert(createdPost != null);
+    assert(currentUser != null);
+    assert(feed != null);
+    assert(postById != null);
+    assert(userById != null);
+    assert(likedPost != null);
+    assert(loggedOut != null);
+    assert(unLikedPost != null);
+    assert(toPostPage != null);
+    assert(toFeedPage != null);
+    return toPostPage(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object>({
+    TResult initialState(InitialState value),
+    TResult createdPost(CreatedPost value),
+    TResult currentUser(CurrentUser value),
+    TResult feed(Feed value),
+    TResult postById(PostById value),
+    TResult userById(UserById value),
+    TResult likedPost(LikedPost value),
+    TResult loggedOut(LoggedOut value),
+    TResult unLikedPost(UnlikedPost value),
+    TResult toPostPage(ToPostPage value),
+    TResult toFeedPage(ToFeedPage value),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (toPostPage != null) {
+      return toPostPage(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class ToPostPage implements CoreState {
+  const factory ToPostPage() = _$ToPostPage;
+}
+
+/// @nodoc
+abstract class $ToFeedPageCopyWith<$Res> {
+  factory $ToFeedPageCopyWith(
+          ToFeedPage value, $Res Function(ToFeedPage) then) =
+      _$ToFeedPageCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class _$ToFeedPageCopyWithImpl<$Res> extends _$CoreStateCopyWithImpl<$Res>
+    implements $ToFeedPageCopyWith<$Res> {
+  _$ToFeedPageCopyWithImpl(ToFeedPage _value, $Res Function(ToFeedPage) _then)
+      : super(_value, (v) => _then(v as ToFeedPage));
+
+  @override
+  ToFeedPage get _value => super._value as ToFeedPage;
+}
+
+/// @nodoc
+class _$ToFeedPage implements ToFeedPage {
+  const _$ToFeedPage();
+
+  @override
+  String toString() {
+    return 'CoreState.toFeedPage()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is ToFeedPage);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object>({
+    @required TResult initialState(),
+    @required
+        TResult createdPost(
+            Either<RemoteApiFailures, PostModel> createdPostFailureOrSuccess),
+    @required
+        TResult currentUser(
+            Either<RemoteApiFailures, UserModel> userFailureOrSuccess),
+    @required
+        TResult feed(Either<RemoteApiFailures, FeedModel> feedFailureOrSuccess),
+    @required
+        TResult postById(
+            Either<RemoteApiFailures, PostModel> postFailureOrSuccess),
+    @required
+        TResult userById(
+            Either<RemoteApiFailures, UserModel> userFailureOrSuccess),
+    @required
+        TResult likedPost(
+            Either<RemoteApiFailures, String> likeFailureOrSuccess),
+    @required
+        TResult loggedOut(
+            Either<RemoteApiFailures, Unit> loggedOutFailureOrSuccess),
+    @required
+        TResult unLikedPost(
+            Either<RemoteApiFailures, String> unLikeFailureOrSuccess),
+    @required TResult toPostPage(),
+    @required TResult toFeedPage(),
+  }) {
+    assert(initialState != null);
+    assert(createdPost != null);
+    assert(currentUser != null);
+    assert(feed != null);
+    assert(postById != null);
+    assert(userById != null);
+    assert(likedPost != null);
+    assert(loggedOut != null);
+    assert(unLikedPost != null);
+    assert(toPostPage != null);
+    assert(toFeedPage != null);
+    return toFeedPage();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object>({
+    TResult initialState(),
+    TResult createdPost(
+        Either<RemoteApiFailures, PostModel> createdPostFailureOrSuccess),
+    TResult currentUser(
+        Either<RemoteApiFailures, UserModel> userFailureOrSuccess),
+    TResult feed(Either<RemoteApiFailures, FeedModel> feedFailureOrSuccess),
+    TResult postById(Either<RemoteApiFailures, PostModel> postFailureOrSuccess),
+    TResult userById(Either<RemoteApiFailures, UserModel> userFailureOrSuccess),
+    TResult likedPost(Either<RemoteApiFailures, String> likeFailureOrSuccess),
+    TResult loggedOut(
+        Either<RemoteApiFailures, Unit> loggedOutFailureOrSuccess),
+    TResult unLikedPost(
+        Either<RemoteApiFailures, String> unLikeFailureOrSuccess),
+    TResult toPostPage(),
+    TResult toFeedPage(),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (toFeedPage != null) {
+      return toFeedPage();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object>({
+    @required TResult initialState(InitialState value),
+    @required TResult createdPost(CreatedPost value),
+    @required TResult currentUser(CurrentUser value),
+    @required TResult feed(Feed value),
+    @required TResult postById(PostById value),
+    @required TResult userById(UserById value),
+    @required TResult likedPost(LikedPost value),
+    @required TResult loggedOut(LoggedOut value),
+    @required TResult unLikedPost(UnlikedPost value),
+    @required TResult toPostPage(ToPostPage value),
+    @required TResult toFeedPage(ToFeedPage value),
+  }) {
+    assert(initialState != null);
+    assert(createdPost != null);
+    assert(currentUser != null);
+    assert(feed != null);
+    assert(postById != null);
+    assert(userById != null);
+    assert(likedPost != null);
+    assert(loggedOut != null);
+    assert(unLikedPost != null);
+    assert(toPostPage != null);
+    assert(toFeedPage != null);
+    return toFeedPage(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object>({
+    TResult initialState(InitialState value),
+    TResult createdPost(CreatedPost value),
+    TResult currentUser(CurrentUser value),
+    TResult feed(Feed value),
+    TResult postById(PostById value),
+    TResult userById(UserById value),
+    TResult likedPost(LikedPost value),
+    TResult loggedOut(LoggedOut value),
+    TResult unLikedPost(UnlikedPost value),
+    TResult toPostPage(ToPostPage value),
+    TResult toFeedPage(ToFeedPage value),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (toFeedPage != null) {
+      return toFeedPage(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class ToFeedPage implements CoreState {
+  const factory ToFeedPage() = _$ToFeedPage;
 }

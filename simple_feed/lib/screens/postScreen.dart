@@ -3,24 +3,17 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-class Post extends StatelessWidget {
+class AddPost extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return FeedPost();
-  }
+  _AddPostState createState() => _AddPostState();
 }
 
-class FeedPost extends StatefulWidget {
-  @override
-  _FeedPostState createState() => _FeedPostState();
-}
-
-class _FeedPostState extends State<FeedPost> {
+class _AddPostState extends State<AddPost> {
   final _postTextController = TextEditingController();
 
   File _image;
   Future getImage() async {
-    final image = await ImagePicker.pickImage(source: ImageSource.camera);
+    final image = await ImagePicker.pickImage(source: ImageSource.gallery);
 
     setState(() {
       _image = image;
@@ -36,6 +29,7 @@ class _FeedPostState extends State<FeedPost> {
           elevation: 0,
           backgroundColor: Colors.white,
           title: Row(
+            // ignore: file_names, file_names, file_names, file_names
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               IconButton(

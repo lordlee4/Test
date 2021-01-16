@@ -12,4 +12,6 @@ abstract class CoreEvent with _$CoreEvent {
   const factory CoreEvent.logout() = Logout;
   const factory CoreEvent.unlikePost({String id}) = UnlikePost;
   const factory CoreEvent.refreshFeed() = RefreshFeed;
+  const factory CoreEvent.navToAddPostPage() = NavToAddPostPage;
+  const factory CoreEvent.navToFeedPage() = NavToFeedPage;
 }

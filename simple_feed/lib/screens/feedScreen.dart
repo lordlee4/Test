@@ -5,7 +5,9 @@ import 'package:simple_feed/bloc/bloc/auth_bloc.dart';
 import 'package:simple_feed/bloc/core/core_bloc.dart';
 import 'package:simple_feed/injectable.dart';
 import 'package:simple_feed/models/response_models.dart';
+import 'package:simple_feed/screens/postScreen.dart';
 
+// ignore: file_names
 class Feeds extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -65,20 +67,25 @@ class _BuildBodyState extends State<BuildBody> {
     List<PostModel> postModelList = [];
     return BlocConsumer<CoreBloc, CoreState>(
       listener: (context, state) {
-        // TODO: implement listener
-        // if (state is PostLoadFailure) {
-        //   Scaffold.of(context).showSnackBar(SnackBar(
-        //     content: Text("Error"),
-        //   ));
-        // }
+        state.maybeMap(
+            orElse: () {},
+            toPostPage: (ToPostPage) {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => AddPost()));
+            },
+            toFeedPage: (ToFeedPage) {
+              _coreBloc.add(const RefreshFeed());
+            });
         //TODO:implement the fetch feed state failure and success
+      },
+      builder: (context, state) {
         state.maybeMap(
           orElse: () {},
           feed: (Feed) {
-            print(Feed);
             Feed.feedFailureOrSuccess.fold(
-                (feedFailureOrSuccess) => {
-                      Scaffold.of(context).showSnackBar(SnackBar(content: null))
+                (failure) => {
+                      Scaffold.of(context).showSnackBar(
+                          SnackBar(content: Text("Failed to get Feed")))
                     },
                 (feedModel) => {
                       if (int.parse(feedModel.page) == 1)
@@ -92,22 +99,26 @@ class _BuildBodyState extends State<BuildBody> {
                     });
           },
         );
-      },
-      builder: (context, state) {
-        return Column(
-          children: [
-            NotificationListener<ScrollNotification>(
-              onNotification: (notification) {
-                if (notification is ScrollEndNotification) {
-                  ScrollMetrics metrics = notification.metrics;
-                  if (metrics.pixels >= metrics.maxScrollExtent &&
-                      !metrics.outOfRange) {
-                    _coreBloc.add(CoreEvent.getFeed());
-                  }
+        return RefreshIndicator(
+          onRefresh: () {
+            print("required refresh");
+          },
+          child: NotificationListener<ScrollNotification>(
+            onNotification: (notification) {
+              ScrollMetrics metrics = notification.metrics;
+              if (notification is ScrollEndNotification) {
+                if (metrics.pixels >= metrics.maxScrollExtent &&
+                    !metrics.outOfRange) {
+                  _coreBloc.add(CoreEvent.getFeed());
                 }
-                return true;
-              },
-              child: Expanded(
+              }
+              return true;
+            },
+            child: Expanded(
+              child: RefreshIndicator(
+                onRefresh: () async {
+                  return await _coreBloc.add(const CoreEvent.refreshFeed());
+                },
                 child: SingleChildScrollView(
                   child: Column(
                     children: postModelList
@@ -117,7 +128,7 @@ class _BuildBodyState extends State<BuildBody> {
                 ),
               ),
             ),
-          ],
+          ),
         );
       },
     );
@@ -181,6 +192,7 @@ Widget PostModelView(BuildContext context, PostModel postModel) {
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Expanded(
+              // ignore: file_names, file_names
               flex: 2,
               child: Container(
                   width: data.size.width,

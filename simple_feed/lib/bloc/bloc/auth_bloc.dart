@@ -46,9 +46,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   Stream<AuthState> mapLoggedOutState() async* {
-    if (await _userRepository.signOut()) {
-      yield UnAuthenticatedState();
-    }
+    await _userRepository.signOut();
+    yield UnAuthenticatedState();
   }
 
   Stream<AuthState> mapAppStartToState() async* {
@@ -88,5 +87,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         return OtpExceptionState(message: "Invalid Otp");
       }, (r) => AuthenticatedState());
     });
+  }
   }
 }

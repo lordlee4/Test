@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:simple_feed/screens/feedScreen.dart';
 
 class AddPost extends StatefulWidget {
   @override
@@ -37,7 +38,10 @@ class _AddPostState extends State<AddPost> {
                     Icons.arrow_back,
                     color: Colors.black,
                   ),
-                  onPressed: () {}),
+                  onPressed: () {
+                    Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (context) => Feeds()));
+                  }),
               RaisedButton(
                 onPressed: () {},
                 color: Color(0xFFE9446A),

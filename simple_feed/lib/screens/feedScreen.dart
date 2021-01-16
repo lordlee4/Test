@@ -5,50 +5,48 @@ import 'package:simple_feed/bloc/bloc/auth_bloc.dart';
 import 'package:simple_feed/bloc/core/core_bloc.dart';
 import 'package:simple_feed/injectable.dart';
 import 'package:simple_feed/models/response_models.dart';
-import 'package:simple_feed/screens/postScreen.dart';
+import 'package:simple_feed/screens/welcome.dart';
 
-// ignore: file_names
 class Feeds extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final data = MediaQuery.of(context);
-    return BlocProvider<AuthBloc>(
-      create: (context) => getIt<AuthBloc>(),
-      child: Scaffold(
-        appBar: AppBar(
-          elevation: 0,
-          backgroundColor: Colors.white,
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Center(
-                child: Text(
-                  "Feed",
-                  style: const TextStyle(color: Colors.black),
-                ),
+    return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.white,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Center(
+              child: Text(
+                "Feed",
+                style: const TextStyle(color: Colors.black),
               ),
-              IconButton(
-                icon: Icon(Icons.exit_to_app),
-                onPressed: () {
-                  AuthBloc _authBloc = BlocProvider.of<AuthBloc>(context);
-                  _authBloc.add(LoggedOutEvent());
-                },
-                color: Colors.black,
-              ),
-            ],
-          ),
+            ),
+            IconButton(
+              icon: Icon(Icons.exit_to_app),
+              onPressed: () {
+                AuthBloc _authBloc = BlocProvider.of<AuthBloc>(context);
+                _authBloc.add(LoggedOutEvent());
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => LoginPage()));
+              },
+              color: Colors.black,
+            ),
+          ],
         ),
-        body: BlocProvider<CoreBloc>(
-          create: (context) => getIt<CoreBloc>(),
-          child: BuildBody(),
+      ),
+      body: BlocProvider<CoreBloc>(
+        create: (context) => getIt<CoreBloc>(),
+        child: BuildBody(),
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(
+          Icons.add,
+          size: 40,
         ),
-        floatingActionButton: FloatingActionButton(
-          child: Icon(
-            Icons.add,
-            size: 40,
-          ),
-          onPressed: () {},
-        ),
+        onPressed: () {},
       ),
     );
   }
@@ -67,25 +65,20 @@ class _BuildBodyState extends State<BuildBody> {
     List<PostModel> postModelList = [];
     return BlocConsumer<CoreBloc, CoreState>(
       listener: (context, state) {
-        state.maybeMap(
-            orElse: () {},
-            toPostPage: (ToPostPage) {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => AddPost()));
-            },
-            toFeedPage: (ToFeedPage) {
-              _coreBloc.add(const RefreshFeed());
-            });
+        // TODO: implement listener
+        // if (state is PostLoadFailure) {
+        //   Scaffold.of(context).showSnackBar(SnackBar(
+        //     content: Text("Error"),
+        //   ));
+        // }
         //TODO:implement the fetch feed state failure and success
-      },
-      builder: (context, state) {
         state.maybeMap(
           orElse: () {},
           feed: (Feed) {
+            print(Feed);
             Feed.feedFailureOrSuccess.fold(
-                (failure) => {
-                      Scaffold.of(context).showSnackBar(
-                          SnackBar(content: Text("Failed to get Feed")))
+                (feedFailureOrSuccess) => {
+                      Scaffold.of(context).showSnackBar(SnackBar(content: null))
                     },
                 (feedModel) => {
                       if (int.parse(feedModel.page) == 1)
@@ -99,26 +92,22 @@ class _BuildBodyState extends State<BuildBody> {
                     });
           },
         );
-        return RefreshIndicator(
-          onRefresh: () {
-            print("required refresh");
-          },
-          child: NotificationListener<ScrollNotification>(
-            onNotification: (notification) {
-              ScrollMetrics metrics = notification.metrics;
-              if (notification is ScrollEndNotification) {
-                if (metrics.pixels >= metrics.maxScrollExtent &&
-                    !metrics.outOfRange) {
-                  _coreBloc.add(CoreEvent.getFeed());
+      },
+      builder: (context, state) {
+        return Column(
+          children: [
+            NotificationListener<ScrollNotification>(
+              onNotification: (notification) {
+                if (notification is ScrollEndNotification) {
+                  ScrollMetrics metrics = notification.metrics;
+                  if (metrics.pixels >= metrics.maxScrollExtent &&
+                      !metrics.outOfRange) {
+                    _coreBloc.add(CoreEvent.getFeed());
+                  }
                 }
-              }
-              return true;
-            },
-            child: Expanded(
-              child: RefreshIndicator(
-                onRefresh: () async {
-                  return await _coreBloc.add(const CoreEvent.refreshFeed());
-                },
+                return true;
+              },
+              child: Expanded(
                 child: SingleChildScrollView(
                   child: Column(
                     children: postModelList
@@ -128,7 +117,7 @@ class _BuildBodyState extends State<BuildBody> {
                 ),
               ),
             ),
-          ),
+          ],
         );
       },
     );
@@ -192,7 +181,6 @@ Widget PostModelView(BuildContext context, PostModel postModel) {
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Expanded(
-              // ignore: file_names, file_names
               flex: 2,
               child: Container(
                   width: data.size.width,

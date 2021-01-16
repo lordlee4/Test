@@ -62,9 +62,9 @@ class CoreBloc extends Bloc<CoreEvent, CoreState> {
 
       yield* _getFeed(pageNumber: pageNumber);
     }, navToFeedPage: (e) async* {
-      yield const NavToFeedPage();
+      yield const ToFeedPage();
     }, navToAddPostPage: (e) async* {
-      yield const NavToAddPostPage();
+      yield const ToPostPage();
     });
   }
 

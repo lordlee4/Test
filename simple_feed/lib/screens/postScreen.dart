@@ -1,8 +1,8 @@
 import 'dart:io';
-
+import 'package:simple_feed/bloc/core/core_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:simple_feed/screens/feedScreen.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AddPost extends StatefulWidget {
   @override
@@ -24,6 +24,7 @@ class _AddPostState extends State<AddPost> {
   @override
   Widget build(BuildContext context) {
     var data = MediaQuery.of(context);
+    CoreBloc _coreBloc = BlocProvider.of<CoreBloc>(context);
     return Scaffold(
         //TODO: Make it a stack, the button on top of the picture
         appBar: AppBar(
@@ -39,8 +40,7 @@ class _AddPostState extends State<AddPost> {
                     color: Colors.black,
                   ),
                   onPressed: () {
-                    Navigator.pushReplacement(context,
-                        MaterialPageRoute(builder: (context) => Feeds()));
+                    Navigator.pop(context);
                   }),
               RaisedButton(
                 onPressed: () {},
@@ -57,45 +57,51 @@ class _AddPostState extends State<AddPost> {
             ],
           ),
         ),
-        body: SingleChildScrollView(
-          child: Column(
-            // mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Container(
-                color: Colors.grey[100],
-                height: data.size.height * 0.4,
-                width: data.size.width,
-                child: Center(
-                  child: FloatingActionButton(
-                    onPressed: getImage,
-                    elevation: 0,
-                    backgroundColor: Colors.white,
-                    foregroundColor: Theme.of(context).textTheme.button.color,
-                    child: _image == null
-                        ? Icon(
-                            Icons.camera_alt,
-                            size: 35.0,
-                          )
-                        : Image.file(_image),
+        body: BlocConsumer<CoreBloc, CoreState>(
+          listener: (context, state) {},
+          builder: (context, state) {
+            return SingleChildScrollView(
+              child: Column(
+                // mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Container(
+                    color: Colors.grey[100],
+                    height: data.size.height * 0.4,
+                    width: data.size.width,
+                    child: Center(
+                      child: FloatingActionButton(
+                        onPressed: getImage,
+                        elevation: 0,
+                        backgroundColor: Colors.white,
+                        foregroundColor:
+                            Theme.of(context).textTheme.button.color,
+                        child: _image == null
+                            ? Icon(
+                                Icons.camera_alt,
+                                size: 35.0,
+                              )
+                            : Image.file(_image),
+                      ),
+                    ),
                   ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: TextFormField(
-                  // validator: (value) {},
-                  keyboardType: TextInputType.text,
-                  controller: _postTextController,
-                  maxLines: 5,
-                  decoration: InputDecoration(
-                    hintText: "What's happening?",
-                    hintStyle: Theme.of(context).textTheme.headline2,
-                    border: InputBorder.none,
+                  Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: TextFormField(
+                      // validator: (value) {},
+                      keyboardType: TextInputType.text,
+                      controller: _postTextController,
+                      maxLines: 5,
+                      decoration: InputDecoration(
+                        hintText: "What's happening?",
+                        hintStyle: Theme.of(context).textTheme.headline2,
+                        border: InputBorder.none,
+                      ),
+                    ),
                   ),
-                ),
+                ],
               ),
-            ],
-          ),
+            );
+          },
         ));
   }
 }

@@ -13,9 +13,9 @@ class RemoteApi implements RemoteApiAbstract {
   Dio _dio;
   String token;
   final FirebaseAuth _firebaseAuth;
-  String baseUrl = "https://simple-feed-test.herokuapp.com/v1/";
+  // String baseUrl = "https://simple-feed-test.herokuapp.com/v1/";
 
-  // String baseUrl = "https://simple-feed-prod.herokuapp.com/";
+  String baseUrl = "https://simple-feed-prod.herokuapp.com/v1/";
   RemoteApi(this._dio, this._firebaseAuth);
 
   Future setHeader() async {
@@ -26,7 +26,6 @@ class RemoteApi implements RemoteApiAbstract {
       if (token == null) {
         return null;
       }
-      print("over here");
       _dio.options.headers['Authorization'] = "Bearer $token";
     }
     return _dio;
@@ -41,10 +40,13 @@ class RemoteApi implements RemoteApiAbstract {
       "image": await MultipartFile.fromFile(image.path,
           filename: path.basename(image.path))
     });
+    print("response");
     try {
       final response = await _dio.post(baseUrl + "posts", data: formdata);
+      print("$response");
       return right(PostModel.fromJson(response.data as Map<String, dynamic>));
     } catch (error) {
+      print(error);
       return left(const RemoteApiFailures.failedToCreatePost());
     }
   }
@@ -143,7 +145,6 @@ class RemoteApi implements RemoteApiAbstract {
 
       return right(UserModel.fromJson(response.data as Map<String, dynamic>));
     } catch (error) {
-      print("Error over here $error  +251$phonenumber");
       return left(const RemoteApiFailures.failedToVerify());
     }
   }

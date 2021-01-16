@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:simple_feed/bloc/bloc/auth_bloc.dart';
 import 'package:simple_feed/bloc/core/core_bloc.dart';
+import 'package:simple_feed/repository_core/remote_api.dart';
+import 'package:simple_feed/repository_core/user_repository.dart';
 import 'package:simple_feed/screens/feedScreen.dart';
 import 'package:simple_feed/screens/postScreen.dart';
 import 'package:simple_feed/screens/welcome.dart';
@@ -25,10 +29,19 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: basicTheme(),
-      home: LoginPage(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+            create: (BuildContext context) => AuthBloc(
+                  RepositoryProvider.of<UserRepository>(context),
+                  RepositoryProvider.of<RemoteApi>(context),
+                ))
+      ],
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        theme: basicTheme(),
+        home: LoginPage(),
+      ),
     );
   }
 }

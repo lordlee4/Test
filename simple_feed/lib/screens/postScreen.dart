@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:simple_feed/screens/feedScreen.dart';
 
 class Post extends StatelessWidget {
   @override
@@ -43,7 +44,10 @@ class _FeedPostState extends State<FeedPost> {
                     Icons.arrow_back,
                     color: Colors.black,
                   ),
-                  onPressed: () {}),
+                  onPressed: () {
+                    Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (context) => Feeds()));
+                  }),
               RaisedButton(
                 onPressed: () {},
                 color: Color(0xFFE9446A),

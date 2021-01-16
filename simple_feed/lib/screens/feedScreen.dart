@@ -5,48 +5,48 @@ import 'package:simple_feed/bloc/bloc/auth_bloc.dart';
 import 'package:simple_feed/bloc/core/core_bloc.dart';
 import 'package:simple_feed/injectable.dart';
 import 'package:simple_feed/models/response_models.dart';
+import 'package:simple_feed/screens/welcome.dart';
 
 class Feeds extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final data = MediaQuery.of(context);
-    return BlocProvider<AuthBloc>(
-      create: (context) => getIt<AuthBloc>(),
-      child: Scaffold(
-        appBar: AppBar(
-          elevation: 0,
-          backgroundColor: Colors.white,
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Center(
-                child: Text(
-                  "Feed",
-                  style: const TextStyle(color: Colors.black),
-                ),
+    return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.white,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Center(
+              child: Text(
+                "Feed",
+                style: const TextStyle(color: Colors.black),
               ),
-              IconButton(
-                icon: Icon(Icons.exit_to_app),
-                onPressed: () {
-                  AuthBloc _authBloc = BlocProvider.of<AuthBloc>(context);
-                  _authBloc.add(LoggedOutEvent());
-                },
-                color: Colors.black,
-              ),
-            ],
-          ),
+            ),
+            IconButton(
+              icon: Icon(Icons.exit_to_app),
+              onPressed: () {
+                AuthBloc _authBloc = BlocProvider.of<AuthBloc>(context);
+                _authBloc.add(LoggedOutEvent());
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => LoginPage()));
+              },
+              color: Colors.black,
+            ),
+          ],
         ),
-        body: BlocProvider<CoreBloc>(
-          create: (context) => getIt<CoreBloc>(),
-          child: BuildBody(),
+      ),
+      body: BlocProvider<CoreBloc>(
+        create: (context) => getIt<CoreBloc>(),
+        child: BuildBody(),
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(
+          Icons.add,
+          size: 40,
         ),
-        floatingActionButton: FloatingActionButton(
-          child: Icon(
-            Icons.add,
-            size: 40,
-          ),
-          onPressed: () {},
-        ),
+        onPressed: () {},
       ),
     );
   }

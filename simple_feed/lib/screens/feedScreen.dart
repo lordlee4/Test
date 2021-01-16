@@ -111,17 +111,15 @@ class _BuildBodyState extends State<BuildBody> {
                 }
                 return true;
               },
-              child: Expanded(
-                child: RefreshIndicator(
-                  onRefresh: () async {
-                    return await _coreBloc.add(const CoreEvent.refreshFeed());
-                  },
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: postModelList
-                          .map((postModel) => PostModelView(context, postModel))
-                          .toList(),
-                    ),
+              child: RefreshIndicator(
+                onRefresh: () async {
+                  return await _coreBloc.add(const CoreEvent.refreshFeed());
+                },
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: postModelList
+                        .map((postModel) => PostModelView(context, postModel))
+                        .toList(),
                   ),
                 ),
               )));
@@ -152,12 +150,7 @@ Widget PostModelView(BuildContext context, PostModel postModel) {
                             }
                           })
                     },
-                (id) => {
-                      if (id == postModel.id)
-                        {
-                          //TODO: create a notification that says you liked it
-                        }
-                    });
+                (id) => {});
           },
           unLikedPost: (UnlikedPost) {
             UnlikedPost.unLikeFailureOrSuccess.fold(
@@ -170,12 +163,7 @@ Widget PostModelView(BuildContext context, PostModel postModel) {
                             }
                           })
                     },
-                (id) => {
-                      if (id == postModel.id)
-                        {
-                          //TODO: create a notification that says you unliked it
-                        }
-                    });
+                (id) => {});
           });
     },
     builder: (context, state) {

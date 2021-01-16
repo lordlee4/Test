@@ -30,35 +30,49 @@ class _AddPostState extends State<AddPost> {
         appBar: AppBar(
           elevation: 0,
           backgroundColor: Colors.white,
-          title: Row(
-            // ignore: file_names, file_names, file_names, file_names
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              IconButton(
-                  icon: Icon(
-                    Icons.arrow_back,
-                    color: Colors.black,
-                  ),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  }),
-              RaisedButton(
-                onPressed: () {},
-                color: Color(0xFFE9446A),
-                padding: EdgeInsets.symmetric(
-                    vertical: 8.0, horizontal: data.size.width * 0.1),
-                child: Container(
-                  child: Text(
-                    "Post",
-                    style: TextStyle(color: Colors.white),
-                  ),
+          leading: Align(
+            alignment: Alignment.topLeft,
+            child: IconButton(
+                icon: Icon(
+                  Icons.arrow_back,
+                  color: Colors.black,
+                ),
+                onPressed: () {
+                  Navigator.pop(context);
+                }),
+          ),
+          title: Align(
+            alignment: Alignment.centerRight,
+            child: RaisedButton(
+              onPressed: () {
+                _coreBloc.add(CreatePost(
+                    caption: _postTextController.text, image: _image));
+              },
+              color: Color(0xFFE9446A),
+              padding: EdgeInsets.symmetric(
+                  vertical: 8.0, horizontal: data.size.width * 0.1),
+              child: Container(
+                child: Text(
+                  "Post",
+                  style: TextStyle(color: Colors.white),
                 ),
               ),
-            ],
+            ),
           ),
         ),
         body: BlocConsumer<CoreBloc, CoreState>(
-          listener: (context, state) {},
+          listener: (context, state) {
+            state.maybeMap(
+                orElse: () {},
+                createdPost: (CreatedPost) {
+                  CreatedPost.createdPostFailureOrSuccess.fold(
+                      (l) => {
+                            Scaffold.of(context).showSnackBar(SnackBar(
+                                content: Text("Failed to Create Post")))
+                          },
+                      (r) => {_coreBloc.add(NavToFeedPage())});
+                });
+          },
           builder: (context, state) {
             return SingleChildScrollView(
               child: Column(
@@ -69,19 +83,24 @@ class _AddPostState extends State<AddPost> {
                     height: data.size.height * 0.4,
                     width: data.size.width,
                     child: Center(
-                      child: FloatingActionButton(
-                        onPressed: getImage,
-                        elevation: 0,
-                        backgroundColor: Colors.white,
-                        foregroundColor:
-                            Theme.of(context).textTheme.button.color,
-                        child: _image == null
-                            ? Icon(
+                      child: _image == null
+                          ? FloatingActionButton(
+                              onPressed: getImage,
+                              elevation: 0,
+                              backgroundColor: Colors.white,
+                              foregroundColor:
+                                  Theme.of(context).textTheme.button.color,
+                              child: Icon(
                                 Icons.camera_alt,
                                 size: 35.0,
-                              )
-                            : Image.file(_image),
-                      ),
+                              ))
+                          : GestureDetector(
+                              onTap: getImage,
+                              child: Image.file(
+                                _image,
+                                width: data.size.width * 0.9,
+                              ),
+                            ),
                     ),
                   ),
                   Padding(

@@ -95,7 +95,9 @@ class _AddPostState extends State<AddPost> {
                                 size: 35.0,
                               ))
                           : GestureDetector(
-                              onTap: getImage,
+                              onTap: () async {
+                                await getImage();
+                              },
                               child: Image.file(
                                 _image,
                                 width: data.size.width * 0.9,

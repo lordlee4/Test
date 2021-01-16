@@ -17,58 +17,66 @@ part 'core_bloc.freezed.dart';
 class CoreBloc extends Bloc<CoreEvent, CoreState> {
   final RemoteApi _remoteApi;
   int pageNumber = 1;
-  CoreBloc(this._remoteApi) : super(const CoreState.initialState()) {
-    add(const InitialEvent());
-  }
-
+  CoreBloc(this._remoteApi) : super(const CoreState.initialState());
   @override
   Stream<CoreState> mapEventToState(CoreEvent event) async* {
-    yield* event.map(initialEvent: (e) async* {
-      yield* _getFeed(pageNumber: pageNumber);
-    }, createPost: (e) async* {
-      final Either<RemoteApiFailures, PostModel> createdPostFailureOrSuccess =
-          await _remoteApi.createPost(caption: e.caption, image: e.image);
-      yield CreatedPost(
-          createdPostFailureOrSuccess: createdPostFailureOrSuccess);
-    }, getCurrentUser: (e) async* {
-      final Either<RemoteApiFailures, UserModel> userFailureOrSuccess =
-          await _remoteApi.getCurrentUser();
-      yield CurrentUser(userFailureOrSuccess: userFailureOrSuccess);
-    }, getFeed: (e) async* {
-      yield* _getFeed(pageNumber: pageNumber);
-    }, getPostById: (e) async* {
-      final Either<RemoteApiFailures, PostModel> postFailureOrSuccess =
-          await _remoteApi.getPostById(id: e.id);
-      yield PostById(postFailureOrSuccess: postFailureOrSuccess);
-    }, getUserById: (e) async* {
-      final Either<RemoteApiFailures, UserModel> userFailureOrSuccess =
-          await _remoteApi.getUserById(id: e.id);
-      yield UserById(userFailureOrSuccess: userFailureOrSuccess);
-    }, likePost: (e) async* {
-      final Either<RemoteApiFailures, String> likeFailureOrSuccess =
-          await _remoteApi.likePost(id: e.id);
-      yield LikedPost(likeFailureOrSuccess: likeFailureOrSuccess);
-    }, logout: (e) async* {
-      final Either<RemoteApiFailures, Unit> loggedOutFailureOrSuccess =
-          await _remoteApi.logout();
-      yield LoggedOut(loggedOutFailureOrSuccess: loggedOutFailureOrSuccess);
-    }, unlikePost: (e) async* {
-      final Either<RemoteApiFailures, String> unLikeFailureOrSuccess =
-          await _remoteApi.unlikePost(id: e.id);
-      yield UnlikedPost(unLikeFailureOrSuccess: unLikeFailureOrSuccess);
-    }, refreshFeed: (e) async* {
-      print("refresh feed");
-      pageNumber = 1;
+    yield* event.map(
+        initialEvent: (e) async* {},
+        createPost: (e) async* {
+          final Either<RemoteApiFailures, PostModel>
+              createdPostFailureOrSuccess =
+              await _remoteApi.createPost(caption: e.caption, image: e.image);
+          yield CreatedPost(
+              createdPostFailureOrSuccess: createdPostFailureOrSuccess);
+        },
+        getCurrentUser: (e) async* {
+          final Either<RemoteApiFailures, UserModel> userFailureOrSuccess =
+              await _remoteApi.getCurrentUser();
+          yield CurrentUser(userFailureOrSuccess: userFailureOrSuccess);
+        },
+        getFeed: (e) async* {
+          yield* _getFeed(pageNumber: pageNumber);
+        },
+        getPostById: (e) async* {
+          final Either<RemoteApiFailures, PostModel> postFailureOrSuccess =
+              await _remoteApi.getPostById(id: e.id);
+          yield PostById(postFailureOrSuccess: postFailureOrSuccess);
+        },
+        getUserById: (e) async* {
+          final Either<RemoteApiFailures, UserModel> userFailureOrSuccess =
+              await _remoteApi.getUserById(id: e.id);
+          yield UserById(userFailureOrSuccess: userFailureOrSuccess);
+        },
+        likePost: (e) async* {
+          final Either<RemoteApiFailures, String> likeFailureOrSuccess =
+              await _remoteApi.likePost(id: e.id);
+          yield LikedPost(likeFailureOrSuccess: likeFailureOrSuccess);
+        },
+        logout: (e) async* {
+          final Either<RemoteApiFailures, Unit> loggedOutFailureOrSuccess =
+              await _remoteApi.logout();
+          yield LoggedOut(loggedOutFailureOrSuccess: loggedOutFailureOrSuccess);
+        },
+        unlikePost: (e) async* {
+          final Either<RemoteApiFailures, String> unLikeFailureOrSuccess =
+              await _remoteApi.unlikePost(id: e.id);
+          yield UnlikedPost(unLikeFailureOrSuccess: unLikeFailureOrSuccess);
+        },
+        refreshFeed: (e) async* {
+          pageNumber = 1;
 
-      yield* _getFeed(pageNumber: pageNumber);
-    }, navToFeedPage: (e) async* {
-      yield const ToFeedPage();
-    }, navToAddPostPage: (e) async* {
-      yield const ToPostPage();
-    });
+          yield* _getFeed(pageNumber: pageNumber);
+        },
+        navToFeedPage: (e) async* {
+          yield const ToFeedPage();
+        },
+        navToAddPostPage: (e) async* {
+          yield const ToPostPage();
+        });
   }
 
   Stream<CoreState> _getFeed({int pageNumber}) async* {
+    yield RefreshingFeed();
     final Either<RemoteApiFailures, FeedModel> feedFailureOrSuccess =
         await _remoteApi.getFeed(page: pageNumber);
     feedFailureOrSuccess.foldRight(

@@ -57,8 +57,14 @@ class CoreBloc extends Bloc<CoreEvent, CoreState> {
           await _remoteApi.unlikePost(id: e.id);
       yield UnlikedPost(unLikeFailureOrSuccess: unLikeFailureOrSuccess);
     }, refreshFeed: (e) async* {
+      print("refresh feed");
       pageNumber = 1;
+
       yield* _getFeed(pageNumber: pageNumber);
+    }, navToFeedPage: (e) async* {
+      yield const ToFeedPage();
+    }, navToAddPostPage: (e) async* {
+      yield const ToPostPage();
     });
   }
 

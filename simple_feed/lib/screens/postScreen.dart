@@ -1,27 +1,20 @@
 import 'dart:io';
-
+import 'package:simple_feed/bloc/core/core_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:simple_feed/screens/feedScreen.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class Post extends StatelessWidget {
+class AddPost extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return FeedPost();
-  }
+  _AddPostState createState() => _AddPostState();
 }
 
-class FeedPost extends StatefulWidget {
-  @override
-  _FeedPostState createState() => _FeedPostState();
-}
-
-class _FeedPostState extends State<FeedPost> {
+class _AddPostState extends State<AddPost> {
   final _postTextController = TextEditingController();
 
   File _image;
   Future getImage() async {
-    final image = await ImagePicker.pickImage(source: ImageSource.camera);
+    final image = await ImagePicker.pickImage(source: ImageSource.gallery);
 
     setState(() {
       _image = image;
@@ -31,12 +24,14 @@ class _FeedPostState extends State<FeedPost> {
   @override
   Widget build(BuildContext context) {
     var data = MediaQuery.of(context);
+    CoreBloc _coreBloc = BlocProvider.of<CoreBloc>(context);
     return Scaffold(
         //TODO: Make it a stack, the button on top of the picture
         appBar: AppBar(
           elevation: 0,
           backgroundColor: Colors.white,
           title: Row(
+            // ignore: file_names, file_names, file_names, file_names
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               IconButton(
@@ -45,8 +40,7 @@ class _FeedPostState extends State<FeedPost> {
                     color: Colors.black,
                   ),
                   onPressed: () {
-                    Navigator.pushReplacement(context,
-                        MaterialPageRoute(builder: (context) => Feeds()));
+                    Navigator.pop(context);
                   }),
               RaisedButton(
                 onPressed: () {},
@@ -63,45 +57,51 @@ class _FeedPostState extends State<FeedPost> {
             ],
           ),
         ),
-        body: SingleChildScrollView(
-          child: Column(
-            // mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Container(
-                color: Colors.grey[100],
-                height: data.size.height * 0.4,
-                width: data.size.width,
-                child: Center(
-                  child: FloatingActionButton(
-                    onPressed: getImage,
-                    elevation: 0,
-                    backgroundColor: Colors.white,
-                    foregroundColor: Theme.of(context).textTheme.button.color,
-                    child: _image == null
-                        ? Icon(
-                            Icons.camera_alt,
-                            size: 35.0,
-                          )
-                        : Image.file(_image),
+        body: BlocConsumer<CoreBloc, CoreState>(
+          listener: (context, state) {},
+          builder: (context, state) {
+            return SingleChildScrollView(
+              child: Column(
+                // mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Container(
+                    color: Colors.grey[100],
+                    height: data.size.height * 0.4,
+                    width: data.size.width,
+                    child: Center(
+                      child: FloatingActionButton(
+                        onPressed: getImage,
+                        elevation: 0,
+                        backgroundColor: Colors.white,
+                        foregroundColor:
+                            Theme.of(context).textTheme.button.color,
+                        child: _image == null
+                            ? Icon(
+                                Icons.camera_alt,
+                                size: 35.0,
+                              )
+                            : Image.file(_image),
+                      ),
+                    ),
                   ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: TextFormField(
-                  // validator: (value) {},
-                  keyboardType: TextInputType.text,
-                  controller: _postTextController,
-                  maxLines: 5,
-                  decoration: InputDecoration(
-                    hintText: "What's happening?",
-                    hintStyle: Theme.of(context).textTheme.headline2,
-                    border: InputBorder.none,
+                  Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: TextFormField(
+                      // validator: (value) {},
+                      keyboardType: TextInputType.text,
+                      controller: _postTextController,
+                      maxLines: 5,
+                      decoration: InputDecoration(
+                        hintText: "What's happening?",
+                        hintStyle: Theme.of(context).textTheme.headline2,
+                        border: InputBorder.none,
+                      ),
+                    ),
                   ),
-                ),
+                ],
               ),
-            ],
-          ),
+            );
+          },
         ));
   }
 }

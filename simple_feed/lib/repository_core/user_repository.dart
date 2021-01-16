@@ -5,7 +5,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'dart:io';
-
 import 'package:simple_feed/models/user_model.dart';
 
 @lazySingleton

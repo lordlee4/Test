@@ -5,11 +5,13 @@ import 'package:simple_feed/bloc/bloc/auth_bloc.dart';
 import 'package:simple_feed/bloc/core/core_bloc.dart';
 import 'package:simple_feed/injectable.dart';
 import 'package:simple_feed/models/response_models.dart';
+import 'package:simple_feed/screens/postScreen.dart';
 import 'package:simple_feed/screens/welcome.dart';
 
 class Feeds extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    CoreBloc _coreBloc = BlocProvider.of<CoreBloc>(context);
     final data = MediaQuery.of(context);
     return Scaffold(
       appBar: AppBar(
@@ -37,16 +39,15 @@ class Feeds extends StatelessWidget {
           ],
         ),
       ),
-      body: BlocProvider<CoreBloc>(
-        create: (context) => getIt<CoreBloc>(),
-        child: BuildBody(),
-      ),
+      body: BuildBody(),
       floatingActionButton: FloatingActionButton(
         child: Icon(
           Icons.add,
           size: 40,
         ),
-        onPressed: () {},
+        onPressed: () {
+          _coreBloc.add(NavToAddPostPage());
+        },
       ),
     );
   }
@@ -63,43 +64,46 @@ class _BuildBodyState extends State<BuildBody> {
     CoreBloc _coreBloc = BlocProvider.of<CoreBloc>(context);
     final data = MediaQuery.of(context);
     List<PostModel> postModelList = [];
-    return BlocConsumer<CoreBloc, CoreState>(
-      listener: (context, state) {
-        // TODO: implement listener
-        // if (state is PostLoadFailure) {
-        //   Scaffold.of(context).showSnackBar(SnackBar(
-        //     content: Text("Error"),
-        //   ));
-        // }
-        //TODO:implement the fetch feed state failure and success
-        state.maybeMap(
+    return BlocConsumer<CoreBloc, CoreState>(listener: (context, state) {
+      state.maybeMap(
           orElse: () {},
-          feed: (Feed) {
-            print(Feed);
-            Feed.feedFailureOrSuccess.fold(
-                (feedFailureOrSuccess) => {
-                      Scaffold.of(context).showSnackBar(SnackBar(content: null))
-                    },
-                (feedModel) => {
-                      if (int.parse(feedModel.page) == 1)
-                        {
-                          postModelList.clear(),
-                        },
-                      feedModel.docs.forEach((postModel) => {
-                            postModelList.add(postModel),
-                            print(postModel),
-                          }),
-                    });
+          toPostPage: (ToPostPage) {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => AddPost()));
           },
-        );
-      },
-      builder: (context, state) {
-        return Column(
-          children: [
-            NotificationListener<ScrollNotification>(
+          toFeedPage: (ToFeedPage) {
+            _coreBloc.add(const RefreshFeed());
+          });
+      //TODO:implement the fetch feed state failure and success
+    }, builder: (context, state) {
+      state.maybeMap(
+        orElse: () {},
+        feed: (Feed) {
+          Feed.feedFailureOrSuccess.fold(
+              (failure) => {
+                    Scaffold.of(context).showSnackBar(
+                        SnackBar(content: Text("Failed to get Feed")))
+                  },
+              (feedModel) => {
+                    if (int.parse(feedModel.page) == 1)
+                      {
+                        postModelList.clear(),
+                      },
+                    feedModel.docs.forEach((postModel) => {
+                          postModelList.add(postModel),
+                          print(postModel),
+                        }),
+                  });
+        },
+      );
+      return RefreshIndicator(
+          onRefresh: () {
+            print("required refresh");
+          },
+          child: NotificationListener<ScrollNotification>(
               onNotification: (notification) {
+                ScrollMetrics metrics = notification.metrics;
                 if (notification is ScrollEndNotification) {
-                  ScrollMetrics metrics = notification.metrics;
                   if (metrics.pixels >= metrics.maxScrollExtent &&
                       !metrics.outOfRange) {
                     _coreBloc.add(CoreEvent.getFeed());
@@ -108,19 +112,20 @@ class _BuildBodyState extends State<BuildBody> {
                 return true;
               },
               child: Expanded(
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: postModelList
-                        .map((postModel) => PostModelView(context, postModel))
-                        .toList(),
+                child: RefreshIndicator(
+                  onRefresh: () async {
+                    return await _coreBloc.add(const CoreEvent.refreshFeed());
+                  },
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: postModelList
+                          .map((postModel) => PostModelView(context, postModel))
+                          .toList(),
+                    ),
                   ),
                 ),
-              ),
-            ),
-          ],
-        );
-      },
-    );
+              )));
+    });
   }
 }
 

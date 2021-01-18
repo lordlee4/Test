@@ -40,10 +40,9 @@ class RemoteApi implements RemoteApiAbstract {
       "image": await MultipartFile.fromFile(image.path,
           filename: path.basename(image.path))
     });
-    print("response");
+
     try {
       final response = await _dio.post(baseUrl + "posts", data: formdata);
-      print("$response");
       return right(PostModel.fromJson(response.data as Map<String, dynamic>));
     } catch (error) {
       print(error);
@@ -83,6 +82,7 @@ class RemoteApi implements RemoteApiAbstract {
       );
       return right(PostModel.fromJson(response.data as Map<String, dynamic>));
     } catch (error) {
+      print(error);
       return left(const RemoteApiFailures.failedToGetPostById());
     }
   }

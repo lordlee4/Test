@@ -8,10 +8,19 @@ import 'package:simple_feed/models/response_models.dart';
 import 'package:simple_feed/screens/postScreen.dart';
 import 'package:simple_feed/screens/welcome.dart';
 
-class Feeds extends StatelessWidget {
+class Feeds extends StatefulWidget {
+  @override
+  _FeedsState createState() => _FeedsState();
+}
+
+class _FeedsState extends State<Feeds> {
+  List<PostModel> postModelList = [];
+  bool feedIsCorrupt = false;
+  bool isRefreshingFeed = false;
   @override
   Widget build(BuildContext context) {
     CoreBloc _coreBloc = BlocProvider.of<CoreBloc>(context);
+    AuthBloc _authBloc = BlocProvider.of<AuthBloc>(context);
     final data = MediaQuery.of(context);
     return Scaffold(
       appBar: AppBar(
@@ -29,7 +38,6 @@ class Feeds extends StatelessWidget {
             IconButton(
               icon: Icon(Icons.exit_to_app),
               onPressed: () {
-                AuthBloc _authBloc = BlocProvider.of<AuthBloc>(context);
                 _authBloc.add(LoggedOutEvent());
                 Navigator.pushReplacement(context,
                     MaterialPageRoute(builder: (context) => LoginPage()));
@@ -39,231 +47,287 @@ class Feeds extends StatelessWidget {
           ],
         ),
       ),
-      body: BuildBody(),
+      body: BlocConsumer<CoreBloc, CoreState>(listener: (context, state) {
+        state.maybeMap(
+            orElse: () {},
+            toPostPage: (ToPostPage) {
+              // await Navigator.push(
+              //         context, MaterialPageRoute(builder: (context) => AddPost()))
+              //     .then((value) =>
+              //         {print("getfeed"), _coreBloc.add(const GetFeed())});
+            },
+            toFeedPage: (ToFeedPage) {
+              _coreBloc.add(const RefreshFeed());
+            },
+            refreshingFeed: (RefreshingFeed) {
+              isRefreshingFeed = true;
+            },
+            feed: (Feed) {
+              isRefreshingFeed = false;
+              Feed.feedFailureOrSuccess.fold(
+                  (failure) => {
+                        feedIsCorrupt = true,
+                      },
+                  (feedModel) => {});
+            });
+
+        //TODO:implement the fetch feed state failure and success
+      }, builder: (context, state) {
+        state.maybeMap(
+            orElse: () {},
+            initialState: (InitialState) {
+              _coreBloc.add(const GetFeed());
+            },
+            feed: (Feed) {
+              isRefreshingFeed = false;
+              Feed.feedFailureOrSuccess.fold(
+                  (failure) => {feedIsCorrupt = true},
+                  (feedModel) => {
+                        if (int.parse(feedModel.page) == 1)
+                          {
+                            postModelList.clear(),
+                          },
+                        feedModel.docs.forEach((postModel) => {
+                              postModelList.add(postModel),
+                            }),
+                      });
+            },
+            refreshingFeed: (RefreshingFeed) {
+              isRefreshingFeed = true;
+            });
+        return isRefreshingFeed
+            ? Container(
+                child: Center(
+                  child: CircularProgressIndicator(),
+                ),
+              )
+            : feedIsCorrupt || (postModelList.isEmpty && feedIsCorrupt)
+                ? Container(
+                    padding:
+                        EdgeInsets.fromLTRB(0, data.size.height * 0.3, 0, 0),
+                    child: Align(
+                      heightFactor: data.size.height,
+                      alignment: Alignment.center,
+                      child: Column(
+                        children: [
+                          Text(
+                            "Feed Could Not Load ╰（‵□′）╯",
+                            style: TextStyle(fontSize: 21),
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          IconButton(
+                            iconSize: 50,
+                            icon: Icon(Icons.refresh),
+                            onPressed: () {
+                              _coreBloc.add(RefreshFeed());
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                  )
+                : NotificationListener<ScrollNotification>(
+                    onNotification: (notification) {
+                      ScrollMetrics metrics = notification.metrics;
+                      if (notification is ScrollEndNotification) {
+                        if (metrics.pixels >= metrics.maxScrollExtent &&
+                            !metrics.outOfRange) {
+                          _coreBloc.add(CoreEvent.getFeed());
+                        }
+                      }
+                      return true;
+                    },
+                    child: RefreshIndicator(
+                      onRefresh: () async {
+                        return await _coreBloc
+                            .add(const CoreEvent.refreshFeed());
+                      },
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: postModelList
+                              .map((postModel) => PostModelView(postModel))
+                              .toList(),
+                        ),
+                      ),
+                    ));
+      }),
       floatingActionButton: FloatingActionButton(
         child: Icon(
           Icons.add,
           size: 40,
         ),
-        onPressed: () {
-          _coreBloc.add(NavToAddPostPage());
+        onPressed: () async {
+          await Navigator.push(
+              context, MaterialPageRoute(builder: (context) => AddPost()));
+          setState(() {
+            _coreBloc.add(new RefreshFeed());
+          });
         },
       ),
     );
   }
 }
 
-class BuildBody extends StatefulWidget {
+class PostModelView extends StatefulWidget {
+  final PostModel postModel;
+  var isLiked;
   @override
-  _BuildBodyState createState() => _BuildBodyState();
+  _PostModelViewState createState() => _PostModelViewState();
+
+  PostModelView(this.postModel);
 }
 
-class _BuildBodyState extends State<BuildBody> {
+class _PostModelViewState extends State<PostModelView> {
+  String imageBaseUrl =
+      "https://storage.googleapis.com/simple-feed-704cd.appspot.com/";
+  // var postModel = widget.postModel;
   @override
   Widget build(BuildContext context) {
     CoreBloc _coreBloc = BlocProvider.of<CoreBloc>(context);
+    widget.isLiked =
+        widget.isLiked == null ? widget.postModel.isLiked : widget.isLiked;
+    var postColor = widget.isLiked ? Colors.red : Colors.grey;
     final data = MediaQuery.of(context);
-    List<PostModel> postModelList = [];
-    return BlocConsumer<CoreBloc, CoreState>(listener: (context, state) {
-      state.maybeMap(
-          orElse: () {},
-          toPostPage: (ToPostPage) {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => AddPost()));
-          },
-          toFeedPage: (ToFeedPage) {
-            _coreBloc.add(const RefreshFeed());
-          });
-      //TODO:implement the fetch feed state failure and success
-    }, builder: (context, state) {
-      state.maybeMap(
-        orElse: () {},
-        feed: (Feed) {
-          Feed.feedFailureOrSuccess.fold(
-              (failure) => {
-                    Scaffold.of(context).showSnackBar(
-                        SnackBar(content: Text("Failed to get Feed")))
-                  },
-              (feedModel) => {
-                    if (int.parse(feedModel.page) == 1)
-                      {
-                        postModelList.clear(),
-                      },
-                    feedModel.docs.forEach((postModel) => {
-                          postModelList.add(postModel),
-                          print(postModel),
-                        }),
-                  });
-        },
-      );
-      return RefreshIndicator(
-          onRefresh: () {
-            print("required refresh");
-          },
-          child: NotificationListener<ScrollNotification>(
-              onNotification: (notification) {
-                ScrollMetrics metrics = notification.metrics;
-                if (notification is ScrollEndNotification) {
-                  if (metrics.pixels >= metrics.maxScrollExtent &&
-                      !metrics.outOfRange) {
-                    _coreBloc.add(CoreEvent.getFeed());
-                  }
-                }
-                return true;
+    return Container(
+      child: BlocConsumer<CoreBloc, CoreState>(
+        listener: (context, state) {
+          // TODO: implement listener
+          state.maybeMap(
+              orElse: () {},
+              likedPost: (LikedPost) {
+                LikedPost.likeFailureOrSuccess.fold(
+                    (failedToLikePost) => {
+                          failedToLikePost.maybeMap(
+                              orElse: () {},
+                              failedToLikePost: (id) {
+                                if (id == widget.postModel.id) {
+                                  widget.isLiked = !widget.isLiked;
+                                }
+                              })
+                        },
+                    (id) => {});
               },
-              child: RefreshIndicator(
-                onRefresh: () async {
-                  return await _coreBloc.add(const CoreEvent.refreshFeed());
-                },
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: postModelList
-                        .map((postModel) => PostModelView(context, postModel))
-                        .toList(),
-                  ),
-                ),
-              )));
-    });
-  }
-}
-
-Widget PostModelView(BuildContext context, PostModel postModel) {
-  const imageBaseUrl =
-      "https://storage.googleapis.com/simple-feed-704cd.appspot.com/";
-  final data = MediaQuery.of(context);
-  var isLiked = postModel.isLiked;
-  var postColor = isLiked ? Colors.red : Colors.white;
-  CoreBloc _coreBloc = BlocProvider.of<CoreBloc>(context);
-  return BlocConsumer<CoreBloc, CoreState>(
-    listener: (context, state) {
-      // TODO: implement listener
-      state.maybeMap(
-          orElse: () {},
-          likedPost: (LikedPost) {
-            LikedPost.likeFailureOrSuccess.fold(
-                (failedToLikePost) => {
-                      failedToLikePost.maybeMap(
-                          orElse: () {},
-                          failedToLikePost: (id) {
-                            if (id == postModel.id) {
-                              isLiked = !isLiked;
-                            }
-                          })
-                    },
-                (id) => {});
-          },
-          unLikedPost: (UnlikedPost) {
-            UnlikedPost.unLikeFailureOrSuccess.fold(
-                (failedToUnLikePost) => {
-                      failedToUnLikePost.maybeMap(
-                          orElse: () {},
-                          failedToLikePost: (id) {
-                            if (id == postModel.id) {
-                              isLiked = !isLiked;
-                            }
-                          })
-                    },
-                (id) => {});
-          });
-    },
-    builder: (context, state) {
-      return GestureDetector(
-        onTap: () {},
-        child: SizedBox(
-          height: data.size.height * .4,
-          child:
-              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Expanded(
-              flex: 2,
-              child: Container(
-                  width: data.size.width,
-                  child: CachedNetworkImage(
-                    fit: BoxFit.fitWidth,
-                    imageUrl: imageBaseUrl + postModel.image,
-                    placeholder: (context, url) => Center(
-                        child: CircularProgressIndicator(strokeWidth: 2)),
-                    placeholderFadeInDuration: Duration(milliseconds: 300),
-                    errorWidget: (context, url, error) =>
-                        Container(color: Colors.grey),
-                  )),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(14.0),
-              child: Row(
-                children: [
-                  CircleAvatar(
-                    backgroundColor: Colors.black,
-                    radius: 22,
-                    child: Icon(
-                      Icons.person,
-                      color: Colors.white,
+              unLikedPost: (UnlikedPost) {
+                UnlikedPost.unLikeFailureOrSuccess.fold(
+                    (failedToUnLikePost) => {
+                          failedToUnLikePost.maybeMap(
+                              orElse: () {},
+                              failedToLikePost: (id) {
+                                if (id == widget.postModel.id) {
+                                  widget.isLiked = !widget.isLiked;
+                                }
+                              })
+                        },
+                    (id) => {});
+              });
+        },
+        builder: (context, state) {
+          return GestureDetector(
+            onTap: () {},
+            child: SizedBox(
+              height: data.size.height * .4,
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      flex: 1,
+                      child: Container(
+                          width: data.size.width,
+                          child: CachedNetworkImage(
+                            fit: BoxFit.fitWidth,
+                            imageUrl: imageBaseUrl + widget.postModel.image,
+                            placeholder: (context, url) => Center(
+                                child:
+                                    CircularProgressIndicator(strokeWidth: 2)),
+                            placeholderFadeInDuration:
+                                Duration(milliseconds: 300),
+                            errorWidget: (context, url, error) =>
+                                Container(color: Colors.grey),
+                          )),
                     ),
-                  ),
-                  SizedBox(
-                    width: data.size.width * .03,
-                  ),
-                  Column(
-                    children: [
-                      Text(
-                        postModel.user.name,
-                        style: const TextStyle(
-                            color: Colors.black, fontWeight: FontWeight.bold),
-                      ),
-                      Row(
+                    Padding(
+                      padding: const EdgeInsets.all(14.0),
+                      child: Row(
                         children: [
-                          Text(
-                              "@" +
-                                  postModel.user.username +
-                                  " " +
-                                  DateTime.parse(postModel.updated_at)
-                                      .second
-                                      .toString() +
-                                  " sec ago",
-                              style: TextStyle(
-                                  color: Theme.of(context)
-                                      .textTheme
-                                      .headline2
-                                      .color,
-                                  fontSize: 12.0)),
-                          SizedBox(width: data.size.width * 0.05),
+                          CircleAvatar(
+                            backgroundColor: Colors.black,
+                            radius: 22,
+                            child: Icon(
+                              Icons.person,
+                              color: Colors.white,
+                            ),
+                          ),
+                          SizedBox(
+                            width: data.size.width * .03,
+                          ),
+                          Column(
+                            children: [
+                              Text(
+                                widget.postModel.user.name,
+                                style: const TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              Row(
+                                children: [
+                                  Text(
+                                      "@" +
+                                          widget.postModel.user.username +
+                                          " " +
+                                          DateTime.parse(
+                                                  widget.postModel.updated_at)
+                                              .second
+                                              .toString() +
+                                          " sec ago",
+                                      style: TextStyle(
+                                          color: Theme.of(context)
+                                              .textTheme
+                                              .headline2
+                                              .color,
+                                          fontSize: 12.0)),
+                                  SizedBox(width: data.size.width * 0.05),
+                                ],
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            width: data.size.width * 0.03,
+                          ),
+                          IconButton(
+                            icon: Icon(
+                              Icons.favorite,
+                              color: postColor,
+                            ),
+                            onPressed: () {
+                              //TODO:Make is liked false
+                              if (widget.postModel.isLiked) {
+                                _coreBloc.add(CoreEvent.likePost(
+                                    id: widget.postModel.id));
+                              } else {
+                                _coreBloc.add(CoreEvent.unlikePost(
+                                    id: widget.postModel.id));
+                              }
+                              setState(() {
+                                widget.isLiked = !widget.isLiked;
+                              });
+                            },
+                          ),
+                          Text((widget.postModel.likes).toString()),
                         ],
                       ),
-                    ],
-                  ),
-                  SizedBox(
-                    width: data.size.width * 0.3,
-                  ),
-                  IconButton(
-                    icon: Icon(
-                      Icons.favorite,
-                      color: Colors.black,
                     ),
-                    onPressed: () {
-                      //TODO:Make is liked false
-                      isLiked = !isLiked;
-                      if (postModel.isLiked) {
-                        _coreBloc.add(CoreEvent.likePost(id: postModel.id));
-                      } else {
-                        _coreBloc.add(CoreEvent.unlikePost(id: postModel.id));
-                      }
-                    },
-                  ),
-                  Text((postModel.likes).toString()),
-                ],
-              ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 14, vertical: 5),
+                      child: Text(widget.postModel.user.bio),
+                    ),
+                  ]),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 5),
-              child: Text(postModel.user.bio),
-            ),
-          ]),
-        ),
-      );
-    },
-  );
+          );
+        },
+      ),
+    );
+  }
 }
-
-// (context, index) {
-//   // final posts = state.posts[index];
-//   final posts = postModelList[index];
-//   return PostModelView(context, posts);

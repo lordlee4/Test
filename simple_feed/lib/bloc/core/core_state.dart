@@ -23,4 +23,5 @@ abstract class CoreState with _$CoreState {
       {Either<RemoteApiFailures, String> unLikeFailureOrSuccess}) = UnlikedPost;
   const factory CoreState.toPostPage() = ToPostPage;
   const factory CoreState.toFeedPage() = ToFeedPage;
+  const factory CoreState.refreshingFeed() = RefreshingFeed;
 }
